@@ -1,0 +1,108 @@
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.bg-image {
+  position: relative;
+  background: url("./images/heroBackground.jpg") no-repeat center center / cover;
+  height: auto; /* Automatically adjusts to the content height */
+  overflow: hidden; /* Prevents the background from spilling over */
+}
+
+.bg-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.625); /* Adjust the opacity as needed */
+  z-index: 1;
+}
+
+.hero {
+  position: relative;
+  /* background: url("./images/heroBackground.jpg") no-repeat center center / cover; */
+  color: white;
+  padding: 100px 0;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero img {
+  border-radius: 50%;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.contact-section {
+  background: #f8f9fa;
+  padding: 50px 0;
+}
+
+.footer {
+  background: #343a40;
+  color: white;
+  padding: 20px 0;
+}
+
+.footer a {
+  color: #adb5bd;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: white;
+}
+
+.navbar {
+  background-color: transparent !important; /* Transparent background */
+  border: 2px solid white; /* White border */
+  border-radius: 45px; /* Rounded edges */
+  color: white; /* White text */
+  z-index: 2; /* Stay on top of the background */
+}
+
+.navbar .nav-link {
+  color: white !important; /* White text for nav links */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.navbar .nav-link:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  ); /* Light white background on hover */
+  color: white !important; /* Keep text white on hover */
+}
+
+.navbar-brand {
+  color: white !important; /* White text for the brand */
+}
+
+.navbar-toggler {
+  border-color: white; /* White border for the toggler */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
