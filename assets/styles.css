@@ -6,6 +6,7 @@ body {
   position: relative;
   background: url("./images/heroBackground.jpg") no-repeat center center / cover;
   height: auto; /* Automatically adjusts to the content height */
+  width: auto; /* Full width */
   overflow: hidden; /* Prevents the background from spilling over */
 }
 
