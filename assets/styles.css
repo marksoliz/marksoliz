@@ -44,7 +44,7 @@ body {
   z-index: 1;
 }
 
-.hero p {
+.hero .display-6 {
   text-transform: uppercase; /* Converts text to uppercase */
 }
 
