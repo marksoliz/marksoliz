@@ -11,6 +11,15 @@ body {
   font-style: normal;
 }
 
+.courgette-regular {
+  font-family: "Courgette", cursive;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgb(192, 192, 196);
+}
+
 .bg-image {
   position: relative;
   background: url("./images/heroBackground.jpg") no-repeat center center / cover;
@@ -55,10 +64,43 @@ body {
   z-index: 2;
 }
 
-.section-title {
+/* .section-title {
   font-weight: 700;
   margin-bottom: 30px;
   text-align: center;
+} */
+
+#Services {
+  background: url("./images/services.jpg") no-repeat center center / cover;
+  background-attachment: fixed; /* Makes the background image fixed */
+  position: relative;
+  height: auto; /* Automatically adjusts to the content height */
+  padding: 50px 0; /* Vertical padding */
+  color: #ffffff; /* Dark text for contrast */
+  z-index: 1;
+}
+
+#Services::before {
+  content: ""; /* Required for pseudo-elements */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.84); /* Black overlay with 50% opacity */
+  z-index: -1; /* Place the overlay behind the content */
+}
+
+#Services .section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+#Services .lead {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  /* margin-bottom: 20px; */
 }
 
 .card {
@@ -126,4 +168,25 @@ body {
 
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+strong {
+  font-weight: bold; /* Ensure bold styling */
+}
+
+.lead {
+  font-size: 1.25rem; /* Adjust font size */
+  line-height: 1.8; /* Adjust line height for readability */
+  margin-bottom: 1.5rem; /* Add spacing between paragraphs */
+}
+
+@media (max-width: 992px) {
+  .display-6 .text-part {
+    display: block; /* Stack each part vertically */
+    text-align: center; /* Center-align the text */
+  }
+
+  .display-6 .text-part::after {
+    content: ""; /* Remove the slashes */
+  }
 }
