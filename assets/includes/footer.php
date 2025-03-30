@@ -5,7 +5,8 @@
             <li class="list-inline-item"><a href="index.php">Home</a></li>
             <li class="list-inline-item"><a href="index.php#about">About Mark Soliz Web Developer</a></li>
             <li class="list-inline-item"><a href="index.php#Services">Services</a></li>
-            <li class="list-inline-item"><a href="#portfolio">Portfolio</a></li>
+            <li class="list-inline-item"><a href="index.php#contact">Contact</a></li>
+            <li class="list-inline-item"><a href="portfolio.php">Portfolio</a></li>
             <li class="list-inline-item"><a href="blog.php">Blog</a></li>
         </ul>
     </div>
@@ -44,6 +45,14 @@
     // Dynamically set the current year in the footer
     const currentYear = new Date().getFullYear();
     document.getElementById("currentYear").textContent = currentYear;
+</script>
+
+<!-- JavaScript to Control Video Playback Speed -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const video = document.getElementById("portfolioVideo");
+        video.playbackRate = 0.2; // Set playback speed to 50% (slower)
+    });
 </script>
 
 </body>
