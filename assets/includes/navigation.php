@@ -1,11 +1,17 @@
-<nav class="navbar navbar-expand-lg mt-4 mx-5">
+<?php
+// Determine the current file name
+$currentFile = basename($_SERVER['PHP_SELF']);
+$isIndex = ($currentFile === 'index.php');
+?>
+
+<nav class="navbar navbar-expand-lg my-4 mx-5">
     <div class="container-fluid">
         <img
             class="img-fluid rounded-circle me-2"
             style="width: 50px; height: 50px"
             src="./assets/images/mark-soliz-web-desing-hosting-digital-marketing.jpg"
             alt="Mark Soliz" />
-        <a class="navbar-brand fw-bold" href="#">MarkSoliz.com</a>
+        <a class="navbar-brand fw-bold" href="index.php">MarkSoliz.com</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -19,25 +25,23 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="#">Home</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="#about">About</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="index.php#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="#Services">Services</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="index.php#Services">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="#contact">Contact</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="index.php#contact">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link rounded-pill px-3 py-2" href="portfolio.php">Portfolio</a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="#blog">Blog</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="blog.php">Blog</a>
                 </li>
-
             </ul>
             <!-- Search Field -->
             <form class="d-flex ms-3">
