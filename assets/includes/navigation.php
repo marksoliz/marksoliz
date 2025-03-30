@@ -11,7 +11,7 @@ $isIndex = ($currentFile === 'index.php');
             style="width: 50px; height: 50px"
             src="./assets/images/mark-soliz-web-desing-hosting-digital-marketing.jpg"
             alt="Mark Soliz" />
-        <a class="navbar-brand fw-bold" href="index.php">MarkSoliz.com</a>
+        <a class="navbar-brand fw-bold" href="<?php echo base_url("index.php") ?>">MarkSoliz.com</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -25,23 +25,37 @@ $isIndex = ($currentFile === 'index.php');
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="index.php">Home</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php") ?>">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="index.php#about">About</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php#about") ?>">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="index.php#Services">Services</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php#Services") ?>">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="index.php#contact">Contact</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php#contact") ?>">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="portfolio.php">Portfolio</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("portfolio.php") ?>">Portfolio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="blog.php">Blog</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("blog.php") ?>">Blog</a>
                 </li>
+                <?php if (!isUserLoggedIn()): ?>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("login.php") ?>">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("register.php") ?>">Register</a>
+                    </li>
+                <?php else: ?>
+                    <form method="POST" action="<?php echo base_url("logout.php") ?>">
+                        <li class="nav-item">
+                            <button type="submit" class="nav-link rounded-pill px-3 py-2">Logout</button>
+                        </li>
+                    </form>
+                <?php endif; ?>
             </ul>
             <!-- Search Field -->
             <form class="d-flex ms-3">

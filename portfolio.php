@@ -13,7 +13,7 @@
   <div class="container">
     <h2 class="section-title text-center mb-4">My Portfolio</h2>
     <p class="text-center lead mb-5">
-      Explore some of the websites and projects I’ve created, showcasing my skills in web development, design, and creativity.
+      Explore some of the websites and projects I’ve created, showcasing my skills in web development, design, and creativity. The first few projects are personal projects that I created while learning HTML and CSS. The last two projects are live projects that I created, showcasing my ability to create dynamic and user-friendly web applications.
     </p>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <!-- Project 1 -->
@@ -33,7 +33,7 @@
           <div class="card-footer text-center">
             <a
               href="CSS Flag Project/"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               target="_blank">View Project</a>
           </div>
         </div>
@@ -48,7 +48,7 @@
             class="card-img-top"
             alt="Project 2" />
           <div class="card-body">
-            <h5 class="card-title">Guess My Number</h5>
+            <h5 class="card-title">Guess My Number Project</h5>
             <p class="card-text">
               A fun and interactive number guessing game built with JavaScript and HTML. This project showcases dynamic DOM manipulation and user interaction.
 
@@ -57,7 +57,7 @@
           <div class="card-footer text-center">
             <a
               href="guessNumber/"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               target="_blank">View Project</a>
           </div>
         </div>
@@ -80,7 +80,7 @@
           <div class="card-footer text-center">
             <a
               href="Mondrian Project/"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               target="_blank">View Project</a>
           </div>
         </div>
@@ -102,7 +102,7 @@
           <div class="card-footer text-center">
             <a
               href="TinDog/"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               target="_blank">View Project</a>
           </div>
         </div>
@@ -125,7 +125,7 @@
           <div class="card-footer text-center">
             <a
               href="https://happyfatgirl.com/"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               target="_blank">View Project</a>
           </div>
         </div>
@@ -148,7 +148,7 @@
           <div class="card-footer text-center">
             <a
               href="https://marksoliz.com/"
-              class="btn btn-primary"
+              class="btn btn-secondary"
               target="_blank">View Project</a>
           </div>
         </div>

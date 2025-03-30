@@ -11,21 +11,46 @@ class User
         $this->conn = $database->getConnection();
     }
 
-    // Register method
-    public function register($username, $email, $password)
+    // Does User Exsists
+    public function userExists($username)
     {
         // Sanitize the input
+        $username = htmlspecialchars(strip_tags($username));
+
+        // Query to check if the user exists
+        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE username = :username";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':username', $username);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Fetch the result
+        $count = $stmt->fetchColumn();
+
+        // Return true if the user exists, false otherwise
+        return $count > 0;
+    }
+
+    // Register method
+    public function register($firstName, $lastName, $username, $email, $password)
+    {
+        // Sanitize the input
+        $firstName = htmlspecialchars(strip_tags($firstName));
+        $lastName = htmlspecialchars(strip_tags($lastName));
         $username = htmlspecialchars(strip_tags($username));
         $email = htmlspecialchars(strip_tags($email));
         $password = htmlspecialchars(strip_tags($password));
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
         // Insert the user into the database
-        $query = "INSERT INTO " . $this->table . " (username, email, password) VALUES (:username, :email, :password)";
+        $query = "INSERT INTO " . $this->table . " (username, email, password, firstName, lastName) VALUES (:username, :email, :password, :firstName, :lastName)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
 
         // Execute the query
         if ($stmt->execute()) {
@@ -36,16 +61,16 @@ class User
     }
 
     // Login method
-    public function login($email, $password)
+    public function login($username, $password)
     {
         // Sanitize the input
-        $email = htmlspecialchars(strip_tags($email));
+        $username = htmlspecialchars(strip_tags($username));
         $password = htmlspecialchars(strip_tags($password));
 
         // Get the user from the database
-        $query = "SELECT * FROM " . $this->table . " WHERE email = :email";
+        $query = "SELECT * FROM " . $this->table . " WHERE user = :username";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':username', $username);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_OBJ);
 

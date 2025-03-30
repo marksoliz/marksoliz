@@ -1,4 +1,7 @@
-<?php include 'assets/includes/header.php'; ?>
+<?php include 'assets/includes/header.php';
+
+
+?>
 
 
 <div class="bg-image">

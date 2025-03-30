@@ -1,3 +1,9 @@
+<?php
+require_once './init.php'; // Ensure this includes the Database class and config
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +74,7 @@
         href="https://fonts.googleapis.com/css2?family=Courgette&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet" />
 
-    <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="stylesheet" href="<?php echo asset_url("styles.css") ?>" />
 </head>
 
 <body>

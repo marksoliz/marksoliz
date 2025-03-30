@@ -148,6 +148,7 @@ body {
   border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  z-index: 2; /* Ensure cards are above the background */
 }
 
 .card:hover {
@@ -198,6 +199,7 @@ body {
   background: #343a40;
   color: white;
   padding: 20px 0;
+  z-index: 1;
 }
 
 .footer a {
@@ -310,4 +312,9 @@ strong {
 .back-to-top.show {
   opacity: 1;
   visibility: visible;
+}
+
+.login-card {
+  max-width: 400px;
+  width: 100%;
 }

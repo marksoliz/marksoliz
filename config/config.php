@@ -1,6 +1,6 @@
 <?php
 
 const DB_HOST = 'localhost'; // your database host
-const DB_USER = 'root'; // your database username
-const DB_PASS = ''; // your database password
-const DB_NAME = 'cms_pdo_db'; // your database name
+const DB_USER = 'marksoliz_marksoliz'; // your database username
+const DB_PASS = ')W$-nz!EUZuE)+GlMr'; // your database password
+const DB_NAME = 'marksoliz_ms'; // your database name
