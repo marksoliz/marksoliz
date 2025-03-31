@@ -1,6 +1,28 @@
 <?php include "./assets/includes/header.php";
 if (isPostRequest()) {
-    var_dump($_POST); // Debugging: Display submitted form data
+    $user = new User();
+
+
+    // Sanitize the input
+    $firstName = htmlspecialchars(strip_tags($_POST['firstName']));
+    $lastName = htmlspecialchars(strip_tags($_POST['lastName']));
+    $username = htmlspecialchars(strip_tags($_POST['username']));
+    $email = htmlspecialchars(strip_tags($_POST['email']));
+    $password = htmlspecialchars(strip_tags($_POST['password']));
+    $confirmPassword = htmlspecialchars(strip_tags($_POST['confirmPassword']));
+
+
+    // check if user exsits
+    if (!$user->userExists($username)) {
+
+        // check if password and confirm password match
+        if ($password === $confirmPassword) {
+            if ($user->register($firstName, $lastName, $username, $email, $password)) {
+                $sucessMessage = "Registration successful";
+            }
+        } else {
+        }
+    }
 }
 ?>
 
@@ -9,7 +31,7 @@ if (isPostRequest()) {
     <?php include 'assets/includes/navigation.php'; ?>
 
     <!-- Registration Section -->
-    <main class="flex-grow-1 d-flex align-items-center justify-content-center">
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center mb-3">
         <div class="card shadow-lg border-0 rounded-lg p-4 login-card">
             <div class="card-header text-center">
                 <h3 class="text-secondary">Sign Up</h3>
