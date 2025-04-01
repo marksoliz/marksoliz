@@ -8,7 +8,7 @@ function base_url($path = "")
     //check for localhost or domain name
     $host = $_SERVER['HTTP_HOST'];
     //return the base url with the project directory
-    $baseUrl = $protocol . $host;
+    $baseUrl = $protocol . $host . "/" . PROJECT_DIR;
     return $baseUrl . "/" . ltrim($path, '/');
 }
 
