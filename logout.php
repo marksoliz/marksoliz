@@ -1,5 +1,5 @@
 <?php
-require_once './helpers.php'; // Include the helpers.php file where the logout() function is defined
+require_once 'helpers.php'; // Include the helpers.php file where the logout() function is defined
 
 // Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
