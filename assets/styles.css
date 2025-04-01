@@ -317,4 +317,13 @@ strong {
 .login-card {
   max-width: 400px;
   width: 100%;
+  z-index: 1;
+  border-radius: 30px;
+}
+
+.portfolio-card {
+  max-width: 1500px;
+  width: 100%;
+  z-index: 1;
+  border-radius: 30px;
 }
