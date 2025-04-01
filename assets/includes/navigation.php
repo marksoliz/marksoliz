@@ -65,9 +65,10 @@ $isIndex = ($currentFile === 'index.php');
                         type="text"
                         class="form-control rounded-pill"
                         placeholder="Search"
-                        aria-label="Search" />
+                        aria-label="Search"
+                        disabled />
                     <span class="input-group-text bg-transparent border-0">
-                        <i class="bi bi-search"></i>
+                        <!-- <i class="fa-solid fa-magnifying-glass"></i> -->
                     </span>
                 </div>
             </form>

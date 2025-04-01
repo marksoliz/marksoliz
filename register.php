@@ -1,37 +1,20 @@
 <?php include "./assets/includes/header.php";
-if (isPostRequest()) {
-    $user = new User();
 
-
-    // Sanitize the input
-    $firstName = htmlspecialchars(strip_tags($_POST['firstName']));
-    $lastName = htmlspecialchars(strip_tags($_POST['lastName']));
-    $username = htmlspecialchars(strip_tags($_POST['username']));
-    $email = htmlspecialchars(strip_tags($_POST['email']));
-    $password = htmlspecialchars(strip_tags($_POST['password']));
-    $confirmPassword = htmlspecialchars(strip_tags($_POST['confirmPassword']));
-
-
-    // check if user exsits
-    if (!$user->userExists($username)) {
-
-        // check if password and confirm password match
-        if ($password === $confirmPassword) {
-            if ($user->register($firstName, $lastName, $username, $email, $password)) {
-                $sucessMessage = "Registration successful";
-            }
-        } else {
-        }
-    }
-}
 ?>
 
-<div class="d-flex flex-column min-vh-100 bg-image">
+<div class="d-flex flex-column min-vh-100 bg-video">
+
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="bg-video-element">
+        <source src="./assets/videos/comingsoon.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
     <!-- Navbar -->
     <?php include 'assets/includes/navigation.php'; ?>
 
     <!-- Registration Section -->
-    <main class="flex-grow-1 d-flex align-items-center justify-content-center mb-3">
+    <!-- <main class="flex-grow-1 d-flex align-items-center justify-content-center mb-3">
         <div class="card shadow-lg border-0 rounded-lg p-4 login-card">
             <div class="card-header text-center">
                 <h3 class="text-secondary">Sign Up</h3>
@@ -107,8 +90,9 @@ if (isPostRequest()) {
                 <p class="small mb-0">Already have an account? <a href="login.php">Login</a></p>
             </div>
         </div>
-    </main>
+    </main> -->
 
     <!-- Footer -->
-    <?php include 'assets/includes/footer.php'; ?>
+    <?php //include 'assets/includes/footer.php'; 
+    ?>
 </div>
