@@ -50,7 +50,7 @@ if (isPostRequest()) {
                             class="form-control bg-body-secondary"
                             id="name"
                             placeholder="Enter your name"
-                            required />
+                            required disabled />
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -60,7 +60,7 @@ if (isPostRequest()) {
                             class="form-control bg-body-secondary"
                             id="email"
                             placeholder="Enter your email"
-                            required />
+                            required disabled />
                     </div>
                     <div class="mb-3">
                         <label for="subject" class="form-label">Subject</label>
@@ -70,7 +70,7 @@ if (isPostRequest()) {
                             class="form-control bg-body-secondary"
                             id="subject"
                             placeholder="Enter the subject"
-                            required />
+                            required disabled />
                     </div>
 
             </div>
@@ -84,9 +84,9 @@ if (isPostRequest()) {
                         id="message"
                         rows="8"
                         placeholder="Write your message here"
-                        required></textarea>
+                        required disabled></textarea>
                 </div>
-                <button type="submit" class="btn btn-secondary btn-lg mt-3 w-100">
+                <button type="submit" class="btn btn-secondary btn-lg mt-3 w-100" disabled>
                     Send Message
                 </button>
             </div>
