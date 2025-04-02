@@ -57,10 +57,20 @@ function getPostData($field, $default = null)
 //
 function logout()
 {
+    // Start the session if it hasn't been started
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Unset all session variables
+    $_SESSION = [];
+
+    // Destroy the session
     session_destroy();
+
+    // Redirect to the homepage or login page
     redirect('index.php');
 }
-
 
 //format date
 function formatDate($date)

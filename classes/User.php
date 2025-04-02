@@ -32,6 +32,27 @@ class User
         return $count > 0;
     }
 
+    // Check if email exists
+    public function emailExists($email)
+    {
+        // Sanitize the input
+        $email = htmlspecialchars(strip_tags($email));
+
+        // Query to check if the email exists
+        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE email = :email";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':email', $email);
+
+        // Execute the query
+        $stmt->execute();
+
+        // Fetch the result
+        $count = $stmt->fetchColumn();
+
+        // Return true if the email exists, false otherwise
+        return $count > 0;
+    }
+
     // Register method
     public function register($firstName, $lastName, $username, $email, $password)
     {
@@ -68,7 +89,7 @@ class User
         $password = htmlspecialchars(strip_tags($password));
 
         // Get the user from the database
-        $query = "SELECT * FROM " . $this->table . " WHERE user = :username";
+        $query = "SELECT * FROM " . $this->table . " WHERE username = :username";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':username', $username);
         $stmt->execute();
