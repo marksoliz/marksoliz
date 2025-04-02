@@ -44,18 +44,21 @@ $isIndex = ($currentFile === 'index.php');
                 </li>
                 <?php if (!isUserLoggedIn()): ?>
 
-                    <form method="POST" action="<?php echo base_url("logout.php") ?>">
-                        <li class="nav-item">
-                            <button type="submit" class="nav-link rounded-pill px-3 py-2">Logout</button>
-                        </li>
-                    </form>
-                <?php else: ?>
                     <li class="nav-item">
                         <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("login.php") ?>">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("register.php") ?>">Register</a>
                     </li>
+                <?php else: ?>
+
+                    <form method="POST" action="<?php echo base_url("logout.php") ?>">
+                        <li class="nav-item">
+                            <button type="submit" class="nav-link rounded-pill px-3 py-2">Logout</button>
+                        </li>
+                    </form>
+
+
                 <?php endif; ?>
             </ul>
             <!-- Search Field -->

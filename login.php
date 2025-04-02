@@ -1,24 +1,64 @@
 <?php include "./assets/includes/header.php";
-// if (isPostRequest()) {
-//     var_dump($_POST);
-// }
+//check if user is logged in
+if (isUserLoggedIn()) {
+    redirect('index.php');
+}
+// check $_GET for success=1 message
+if (isset($_GET['success']) && $_GET['success'] == 1) {
+    $successMessage = "<div class='alert alert-success'>Registration successful! You can now log in.</div>";
+}
+
+// check $_GET for error=1 message
+if (isset($_GET['error']) && $_GET['error'] == 1) {
+    $errorMessage = "<div class='alert alert-danger'>Error: Invalid username or password!</div>";
+}
+
+
+if (isPostRequest()) {
+    // check if username and password are set
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        // Create a new User object
+        $user = new User();
+
+        // Check if the user exists and the password is correct
+        if ($user->login($username, $password)) {
+            // Redirect to the dashboard or home page
+            redirect('index.php');
+        } else {
+            // redirect to login page echo error message
+            redirect('login.php?error=1');
+        }
+    } else {
+        $errors[] = "<div class='alert alert-danger'>Please enter your username and password!</div>";
+    }
+}
 ?>
 
-<div class="d-flex flex-column min-vh-100 bg-video">
+<div class="d-flex flex-column min-vh-100 bg-image">
     <!-- Navbar -->
     <?php include 'assets/includes/navigation.php'; ?>
-    <video autoplay muted loop playsinline class="bg-video-element">
-        <source src="./assets/videos/comingsoon.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+
     <!-- Login Section -->
-    <!-- <main class="flex-grow-1 d-flex align-items-center justify-content-center">
-        <div class="card shadow-lg border-0 rounded-lg p-4 login-card">
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center">
+        <div class="card shadow-lg border-0 rounded-lg p-4 login-card mb-4">
             <div class="card-header text-center">
                 <h3 class="text-secondary">Login</h3>
             </div>
+
             <div class="card-body">
-                <form method="POST" action="">
+                <?php if (isset($successMessage)) {
+                    echo $successMessage;
+                }
+
+                if (isset($errorMessage)) {
+                    echo $errorMessage;
+                } ?>
+
+
+                <form method="POST" action="login.php">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input
@@ -49,9 +89,9 @@
                 <p class="small mb-0">Don't have an account? <a href="register.php">Sign Up</a></p>
             </div>
         </div>
-    </main> -->
+    </main>
 
     <!-- Footer -->
-    <?php //include 'assets/includes/footer.php'; 
+    <?php include 'assets/includes/footer.php';
     ?>
 </div>
