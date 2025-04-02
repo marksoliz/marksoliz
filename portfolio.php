@@ -113,7 +113,7 @@
             <div class="col">
               <div class="card h-100 shadow-sm">
                 <img
-                  src="./assets/images/happyFatGirl.png"
+                  src="./assets/images/happyfatgirl.png"
                   class=" card-img-top"
                   alt="Project 5" />
                 <div class="card-body">
