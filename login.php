@@ -26,7 +26,13 @@ if (isPostRequest()) {
         // Check if the user exists and the password is correct
         if ($user->login($username, $password)) {
             // Redirect to the dashboard or home page
-            redirect('index.php');
+            if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                redirect('admin/index.php');
+            } elseif (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'user') {
+                redirect('index.php');
+            } else {
+                redirect('index.php');
+            }
         } else {
             // redirect to login page echo error message
             redirect('login.php?error=1');

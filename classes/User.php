@@ -104,6 +104,10 @@ class User
                 $_SESSION['username'] = $user->username;
                 $_SESSION['logged_in'] = true;
                 $_SESSION['email'] = $user->email;
+                $_SESSION['firstName'] = $user->firstName;
+                $_SESSION['lastName'] = $user->lastName;
+                $_SESSION['user_role'] = $user->user_role; // Assuming you have a role column in your users table
+
 
                 return true;
             }
