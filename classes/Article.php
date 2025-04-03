@@ -189,4 +189,50 @@ class Article
 
         return false;
     }
+
+    // Generate dummy data
+    public function generateDummyData($count = 10)
+    {
+        $query = "INSERT INTO " . $this->table . " (title, content, user_id, created_at, image) VALUES (:title, :content, :user_id, :created_at, :image)";
+        $stmt = $this->conn->prepare($query);
+
+        $dummyTitles = [
+            "Lorem ipsum dolor sit amet",
+            "Consectetur adipiscing elit",
+            "Sed do eiusmod tempor incididunt",
+            "Ut labore et dolore magna aliqua",
+            "Ut enim ad minim veniam",
+            "Quis nostrud exercitation ullamco laboris",
+            "Nisi ut aliquip ex ea commodo consequat",
+            "Duis aute irure dolor in reprehenderit",
+            "In voluptate velit esse cillum dolore",
+            "Excepteur sint occaecat cupidatat non proident"
+        ];
+
+        $dummyContent = "Veniam enim culpa reprehenderit sunt quis quis ullamco tempor deserunt ut. Mollit adipisicing consequat reprehenderit velit. Non exercitation ipsum non esse deserunt minim pariatur. Esse officia cillum id tempor est ex est commodo sit adipisicing mollit. Qui commodo nostrud cillum nisi qui et Lorem. Cillum enim enim in officia in labore sunt ullamco aliqua dolore consectetur velit do deserunt.";
+
+        $dummyImage = "https://placehold.co/350x200";
+
+        $userId = $_SESSION['user_id'];
+        $createdAt = date('Y-m-d');
+
+        for ($i = 0; $i < $count; $i++) {
+            $title = $dummyTitles[array_rand($dummyTitles)];
+            $content = $dummyContent;
+            $image = $dummyImage;
+
+            // Bind parameters
+            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+            $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+            $stmt->bindParam(':created_at', $createdAt, PDO::PARAM_STR);
+            $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+
+            // Execute the statement
+            if (!$stmt->execute()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
