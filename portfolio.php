@@ -6,7 +6,7 @@
   <!-- Navbar -->
   <?php include 'assets/includes/navigation.php'; ?>
 
-  <!-- Registration Section -->
+
   <main class="flex-grow-1 d-flex align-items-center justify-content-center  mb-3">
     <div class="container-fluid shadow-lg border-0  p-4 portfolio-card">
       <!-- Portfolio Section -->

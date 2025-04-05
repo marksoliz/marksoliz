@@ -323,3 +323,10 @@ strong {
   z-index: 1;
   border-radius: 30px;
 }
+
+.blog-container {
+  max-width: 1500px;
+  width: 100%;
+  z-index: 1;
+  border-radius: 30px;
+}

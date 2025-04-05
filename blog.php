@@ -2,20 +2,20 @@
 
 ?>
 
-<div class="d-flex flex-column min-vh-100 bg-video">
-
-
-    <!-- Background Video -->
-    <video autoplay muted loop playsinline class="bg-video-element">
-        <source src="./assets/videos/comingsoon.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+<div class="d-flex flex-column min-vh-100 bg-image">
     <!-- Navbar -->
     <?php include 'assets/includes/navigation.php'; ?>
 
+    <main class="flex-grow-1 d-flex align-items-center justify-content-center  mb-3">
+        <div class="container-fluid shadow-lg border-0  p-4 blog-card">
+            <!-- Blog Section -->
+            <section id="blog" class="py-5 bg-light rounded-5">
 
 
+            </section>
+        </div>
+    </main>
     <!-- Footer -->
-    <?php //include 'assets/includes/footer.php'; 
+    <?php include 'assets/includes/footer.php';
     ?>
 </div>

@@ -123,4 +123,63 @@ class User
         }
         return false;
     }
+
+    // Get all users
+    public function getAllUsers()
+    {
+        $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    // Get user by ID
+    public function getUserById($id)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :id LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    // Update user
+    public function updateUser($id, $firstName, $lastName, $username, $email, $password = null)
+    {
+        // Sanitize the input
+        $firstName = htmlspecialchars(strip_tags($firstName));
+        $lastName = htmlspecialchars(strip_tags($lastName));
+        $username = htmlspecialchars(strip_tags($username));
+        $email = htmlspecialchars(strip_tags($email));
+
+        // Prepare the query
+        if ($password) {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $query = "UPDATE " . $this->table . " SET firstName = :firstName, lastName = :lastName, username = :username, email = :email, password = :password WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':password', $hashedPassword);
+        } else {
+            $query = "UPDATE " . $this->table . " SET firstName = :firstName, lastName = :lastName, username = :username, email = :email WHERE id = :id";
+            $stmt = $this->conn->prepare($query);
+        }
+
+        // Bind parameters
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+        // Execute the query
+        return $stmt->execute();
+    }
+
+    // Delete user
+    public function deleteUser($id)
+    {
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

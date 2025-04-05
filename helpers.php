@@ -54,6 +54,15 @@ function getPostData($field, $default = null)
     return isset($_POST[$field]) ? trim($_POST[$field]) : $default;
 }
 
+
+function escape($string)
+{
+
+    global $connection;
+
+    return mysqli_real_escape_string($connection, trim($string));
+}
+
 //
 function logout()
 {
