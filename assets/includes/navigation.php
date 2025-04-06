@@ -60,6 +60,12 @@ $isIndex = ($currentFile === 'index.php');
 
 
                 <?php endif; ?>
+
+                <?php if (isUserLoggedIn() && isset($_SESSION['user_role']) == 'admin'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("admin") ?>">Admin</a>
+                    </li>
+                <?php endif; ?>
             </ul>
             <!-- Search Field -->
             <form class="d-flex ms-3">

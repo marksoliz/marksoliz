@@ -4,7 +4,7 @@ class Contact
     // Database connection
 
     private $conn;
-    private $table = 'contactForm';
+    private $table = 'contactform';
 
     public function __construct()
     {
@@ -50,5 +50,29 @@ class Contact
         } else {
             return false;
         }
+    }
+
+    // Delete multiple contact form submissions by IDs
+    public function deleteSelectedMessages($ids)
+    {
+        if (!is_array($ids)) {
+            throw new InvalidArgumentException('Expected an array of IDs.');
+        }
+
+        // Sanitize the IDs to ensure they are integers
+        $ids = array_map('intval', $ids);
+
+        // Convert the array of IDs into a comma-separated string
+        $idList = implode(',', $ids);
+
+        // Prepare the SQL query to delete multiple rows
+        $query = "DELETE FROM $this->table WHERE id IN ($idList)";
+        $stmt = $this->conn->prepare($query);
+
+        // Execute the query
+        return $stmt->execute();
+
+        redirect('contact_form.php?success=1');
+        exit();
     }
 }

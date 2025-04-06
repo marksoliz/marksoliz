@@ -8,9 +8,11 @@ include "./includes/admin_header.php";
 //     redirect('login.php');
 // }
 
-// Check if the user is an admin    
-if (isset($_SESSION['user_role']) && $_SESSION['user_role'] !== 'admin') {
+// Check if the user is an admin
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+    // Redirect to the homepage or login page
     redirect('index.php');
+    exit();
 }
 // Include the navigation
 include "./includes/nav.php";
