@@ -1,7 +1,7 @@
 <?php
 // Get all messages from contact form
 $messages = new Contact();
-$message = $messages->getContactFormSubmissions();
+$contactMessages = $messages->getContactFormSubmissions();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_ids'])) {
     // Ensure selected_ids is always an array
@@ -34,20 +34,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_ids'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($messages as $message): ?>
+                    <?php foreach ($contactMessages as $contactMessage): ?>
                         <tr>
                             <td>
-                                <input type="checkbox" name="selected_ids[]" value="<?= htmlspecialchars($message->id) ?>" />
+                                <input type="checkbox" name="selected_ids[]" value="<?= htmlspecialchars($contactMessage->id) ?>" />
                             </td>
-                            <td><?= htmlspecialchars($message->id) ?></td>
-                            <td><?= htmlspecialchars($message->name) ?></td>
-                            <td><?= htmlspecialchars($message->email) ?></td>
-                            <td><?= htmlspecialchars($message->subject) ?></td>
-                            <td><?= htmlspecialchars($message->message) ?></td>
-                            <td><?= htmlspecialchars($message->created_at) ?></td> <!-- Assuming created_at is the date field -->
+                            <td><?= htmlspecialchars($contactMessage->id) ?></td>
+                            <td><?= htmlspecialchars($contactMessage->name) ?></td>
+                            <td><?= htmlspecialchars($contactMessage->email) ?></td>
+                            <td><?= htmlspecialchars($contactMessage->subject) ?></td>
+                            <td><?= htmlspecialchars($contactMessage->message) ?></td>
+                            <td><?= htmlspecialchars($contactMessage->created_at) ?></td> <!-- Assuming created_at is the date field -->
                             <td>
                                 <form method="POST" action="" style="display:inline;">
-                                    <input type="hidden" name="id" value="<?= htmlspecialchars($message->id) ?>">
+                                    <input type="hidden" name="id" value="<?= htmlspecialchars($contactMessage->id) ?>">
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                             </td>
