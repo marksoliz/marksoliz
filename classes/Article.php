@@ -73,7 +73,7 @@ class Article
     //Get articles by user
     public function getArticlesByUserId($userId)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE user_id = :user_id ORDER BY created_at DESC";
+        $query = "SELECT * FROM " . $this->table . " WHERE user_id = :user_id ORDER BY id DESC";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
         $stmt->execute();
@@ -193,16 +193,38 @@ class Article
     // Delete multiple articles with images
     public function deleteMultipleArticlesWithImage($articleIds)
     {
+        // $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
+        // $query = "DELETE FROM " . $this->table . " WHERE id IN ($placeholders)";
+        // $stmt = $this->conn->prepare($query);
+        // return $stmt->execute($articleIds);
 
-        $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
-        $query = "DELETE FROM " . $this->table . " WHERE id IN ($placeholders)";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute($articleIds);
+        try {
+            // Retrieve the articles to get their image paths
+            $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
+            $query = "SELECT id, image FROM " . $this->table . " WHERE id IN ($placeholders)";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute($articleIds);
+            $articles = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            // Delete the images if they exist
+            foreach ($articles as $article) {
+                if (!empty($article->image) && file_exists($article->image)) {
+                    unlink($article->image);
+                }
+            }
+
+            // Delete the articles from the database
+            $deleteQuery = "DELETE FROM " . $this->table . " WHERE id IN ($placeholders)";
+            $deleteStmt = $this->conn->prepare($deleteQuery);
+            return $deleteStmt->execute($articleIds);
+        } catch (Exception $exception) {
+            // Handle any exceptions
+            throw $exception;
+        }
     }
 
-
     // Generate dummy data
-    public function generateDummyData($count = 10)
+    public function generateDummyData($count = null)
     {
         $query = "INSERT INTO " . $this->table . " (title, content, user_id, created_at, image) VALUES (:title, :content, :user_id, :created_at, :image)";
         $stmt = $this->conn->prepare($query);
@@ -245,5 +267,52 @@ class Article
             }
         }
         return true;
+    }
+
+    // Reorder articles
+    public function reorderArticles()
+    {
+        try {
+            // Start the DB transaction
+            if (!$this->conn->inTransaction()) {
+                $this->conn->beginTransaction();
+            }
+
+            // Get all articles
+            $query = "SELECT id FROM " . $this->table;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $articles = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+            // Update each article ID sequentially
+            $newId = 1;
+            foreach ($articles as $article) {
+                $updateQuery = "UPDATE " . $this->table . " SET id = :new_id WHERE id = :old_id";
+                $updateStmt = $this->conn->prepare($updateQuery);
+                $updateStmt->bindParam(':new_id', $newId, PDO::PARAM_INT);
+                $updateStmt->bindParam(':old_id', $article->id, PDO::PARAM_INT);
+                $updateStmt->execute();
+                $newId++;
+            }
+
+            // Reset auto-increment ID
+            $nextAutoIncrement = $newId;
+            $resetQuery = "ALTER TABLE " . $this->table . " AUTO_INCREMENT = :next_auto_increment";
+            $resetStmt = $this->conn->prepare($resetQuery);
+            $resetStmt->bindParam(':next_auto_increment', $nextAutoIncrement, PDO::PARAM_INT);
+            $resetStmt->execute();
+
+            // Commit the transaction
+            if ($this->conn->inTransaction()) {
+                $this->conn->commit();
+            }
+            return true;
+        } catch (Exception $exception) {
+            // Rollback the transaction if an error occurs, but only if a transaction is active
+            if ($this->conn->inTransaction()) {
+                $this->conn->rollBack();
+            }
+            throw $exception;
+        }
     }
 }

@@ -21,7 +21,11 @@ if (isPostRequest()) {
         } catch (Exception $e) {
             $responce['message'] = 'Error deleting articles: ' . $e->getMessage();
         }
+    } else {
+        $responce['message'] = 'Invalid request!';
     }
+} else {
+    $responce['message'] = 'Invalid request!';
 }
 
 echo json_encode($responce);
