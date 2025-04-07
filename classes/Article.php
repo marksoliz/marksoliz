@@ -190,6 +190,14 @@ class Article
         return false;
     }
 
+    // Delete multiple articles with images
+    public function deleteMultipleArticlesWithImage($articleIds)
+    {
+
+        $placeholders = implode(',', array_fill(0, count($articleIds), '?'));
+    }
+
+
     // Generate dummy data
     public function generateDummyData($count = 10)
     {
