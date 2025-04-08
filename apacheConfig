@@ -1,0 +1,57 @@
+Set up multiple hosts (virtual hosts) in XAMPP on Windows
+Step 1: Open the httpd-vhosts.conf File
+Navigate to the XAMPP installation directory (usually C:/xampp).
+Go to the apache/conf/extra/ folder.
+Open the file named httpd-vhosts.conf in a text editor (e.g., Notepad++).
+Step 2: Edit httpd-vhosts.conf
+At the end of the file, you can define multiple virtual hosts.
+
+Here is an example configuration for two different hosts:
+
+# Virtual Host for Project 1
+
+<VirtualHost \*:80>
+ServerAdmin webmaster@project1.local
+DocumentRoot "C:/xampp/htdocs/project1"
+ServerName project1.local
+ErrorLog "logs/project1-error.log"
+CustomLog "logs/project1-access.log" common
+</VirtualHost>
+
+# Virtual Host for Project 2
+
+<VirtualHost \*:80>
+ServerAdmin webmaster@project2.local
+DocumentRoot "C:/xampp/htdocs/project2"
+ServerName project2.local
+ErrorLog "logs/project2-error.log"
+CustomLog "logs/project2-access.log" common
+</VirtualHost>
+
+ServerName: The domain you want to use for your project (e.g., project1.local).
+DocumentRoot: The folder where your project is located (e.g., C:/xampp/htdocs/project1).
+You can define as many virtual hosts as you want using the same structure.
+
+Step 3: Edit hosts File
+To map the custom domain (like project1.local) to localhost, you need to update the hosts file.
+
+Navigate to C:/Windows/System32/drivers/etc/.
+Open the hosts file in a text editor (run as administrator).
+Add the following lines at the end of the file:
+127.0.0.1 project1.local
+127.0.0.1 project2.local
+This maps project1.local and project2.local to localhost.
+
+Step 4: Restart Apache
+After making these changes, restart Apache from the XAMPP Control Panel.
+
+Step 5: Access Your Projects
+Now you should be able to access your projects in the browser by typing:
+
+http://project1.local for Project 1
+http://project2.local for Project 2
+Optional: Make the Public Folder Main URL
+If your project structure requires that the public folder be the main entry point (like Laravel or your /mvc-app/ project), update the DocumentRoot in the virtual host configuration to point to the public folder:
+
+DocumentRoot "C:/xampp/htdocs/project1/public"
+Now, when you access http://project1.local, it will load from the public directory directly.
