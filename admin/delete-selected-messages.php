@@ -3,23 +3,29 @@ require_once '../../init.php'; // Include necessary files
 
 header('Content-Type: application/json');
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$responce = ['success' => false, 'message' => ''];
+
+if (isPostRequest()) {
+
     $data = json_decode(file_get_contents('php://input'), true);
 
-    if (isset($data['ids']) && is_array($data['ids'])) {
-        $ids = array_map('intval', $data['ids']); // Sanitize IDs
+    if (isset($data['message_ids']) && is_array($data['message_ids'])) {
 
-        $contact = new Contact();
-        if ($contact->deleteSelectedMessages($ids)) {
-            echo json_encode(['success' => true]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Failed to delete messages.']);
+        $messageIds = $data['message_ids'];
+
+        try {
+
+            $message = new Contact();
+            $message->deleteSelectedMessages($messageIds);
+            $responce['success'] = true;
+            $responce['message'] = 'Messages deleted successfully!';
+        } catch (Exception $e) {
+            $responce['message'] = 'Error deleting messages: ' . $e->getMessage();
         }
     } else {
-        echo json_encode(['success' => false, 'error' => 'Invalid input.']);
+        $responce['message'] = 'Invalid request!';
     }
-    exit();
 } else {
-    echo json_encode(['success' => false, 'error' => 'Invalid request method.']);
-    exit();
+    $responce['message'] = 'Invalid request!';
 }
+echo json_encode($responce);
