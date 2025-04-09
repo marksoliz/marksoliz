@@ -1,11 +1,11 @@
 <?php
-require_once '../../init.php'; // Include necessary files
+require_once '../init.php'; // Include necessary files
 
 header('Content-Type: application/json');
 
 $responce = ['success' => false, 'message' => ''];
 
-if (isPostRequest()) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = json_decode(file_get_contents('php://input'), true);
 

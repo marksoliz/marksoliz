@@ -62,7 +62,7 @@ class Contact
         $ids = array_map('intval', $ids); // Sanitize IDs
         $idList = implode(',', $ids); // Convert to comma-separated string
 
-        $query = "DELETE FROM contact_form WHERE id IN ($idList)";
+        $query = "DELETE FROM $this->table WHERE id IN ($idList)";
         $stmt = $this->conn->prepare($query);
 
         return $stmt->execute();

@@ -1,0 +1,30 @@
+<?php
+require_once '../../init.php'; // Include necessary files
+
+header('Content-Type: application/json');
+
+$response = ['success' => false, 'message' => ''];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (isset($data['message_ids']) && is_array($data['message_ids'])) {
+        $messageIds = $data['message_ids'];
+
+        try {
+            $message = new Contact();
+            $message->deleteSelectedMessages($messageIds);
+            $response['success'] = true;
+            $response['message'] = 'Messages deleted successfully!';
+        } catch (Exception $e) {
+            error_log('Error deleting messages: ' . $e->getMessage()); // Log the error
+            $response['message'] = 'Error deleting messages: ' . $e->getMessage();
+        }
+    } else {
+        $response['message'] = 'Invalid request! No message IDs provided.';
+    }
+} else {
+    $response['message'] = 'Invalid request method!';
+}
+
+echo json_encode($response);
