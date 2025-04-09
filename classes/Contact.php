@@ -67,4 +67,23 @@ class Contact
 
         return $stmt->execute();
     }
+
+    // Generate dummy data for contact form
+    public function generateDummyMessages($count = null)
+    {
+        $names = ['John Doe', 'Jane Smith', 'Alice Johnson', 'Bob Brown', 'Charlie Davis'];
+        $subjects = ['Inquiry', 'Feedback', 'Support', 'General Question', 'Complaint'];
+        $messages = ['Hello!', 'I need help.', 'Great service!', 'Not satisfied.', 'Can you assist me?'];
+
+        for ($i = 0; $i < $count; $i++) {
+            $name = $names[array_rand($names)];
+            $email = strtolower(str_replace(' ', '', $name)) . '@example.com';
+            $subject = $subjects[array_rand($subjects)];
+            $message = $messages[array_rand($messages)];
+
+            $this->insertContactForm($name, $email, $subject, $message);
+        }
+
+        return true;
+    }
 }
