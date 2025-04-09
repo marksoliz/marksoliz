@@ -21,6 +21,14 @@
 <script src="js/datatables-simple-demo.js"></script>
 
 <script>
+    function confirmDelete(articleId) {
+        if (confirm('Are you sure you want to delete this article?')) {
+            // Implement deletion logic here
+            // For example, make an AJAX request to delete the article
+            alert('Article ' + articleId + ' deleted.');
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function() {
         // Select all checkboxes
         const selectAllCheckbox = document.getElementById("selectAll");

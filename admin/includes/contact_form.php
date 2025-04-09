@@ -6,12 +6,12 @@ $contactMessages = $messages->getContactFormSubmissions();
 
 <?php if ($contactMessages): ?>
     <div class="table-responsive">
-        <button id="deleteSelected" class="btn btn-danger my-2 ">Delete Selected</button>
+        <button id="deleteSelectedBtn" class="btn btn-danger btn-rounded-pill my-2 ">Delete Selected Messages</button>
         <table class="table table-striped table-hover table-bordered">
             <thead class="table-dark">
                 <tr>
                     <th>
-                        <input type="checkbox" id="selectAll" />
+                        <input type="checkbox" id="selectAllCheckbox" />
                     </th>
                     <th>ID</th>
                     <th>Name</th>
@@ -26,7 +26,7 @@ $contactMessages = $messages->getContactFormSubmissions();
                 <?php foreach ($contactMessages as $contactMessage): ?>
                     <tr>
                         <td>
-                            <input type="checkbox" class="select-checkbox" value="<?= htmlspecialchars($contactMessage->id) ?>" />
+                            <input type="checkbox" class="messageCheckbox" value="<?= htmlspecialchars($contactMessage->id) ?>" />
                         </td>
                         <td><?= htmlspecialchars($contactMessage->id) ?></td>
                         <td><?= htmlspecialchars($contactMessage->name) ?></td>
@@ -35,7 +35,10 @@ $contactMessages = $messages->getContactFormSubmissions();
                         <td><?= htmlspecialchars($contactMessage->message) ?></td>
                         <td><?= htmlspecialchars($contactMessage->created_at) ?></td>
                         <td>
-                            <button class="btn btn-danger delete-single" data-id="<?= htmlspecialchars($contactMessage->id) ?>">Delete</button>
+                            <form onsubmit="confirmDelete(<?php echo $contactMessage->id; ?>)" method="post" action="<?php echo base_url("admin/delete-message.php"); ?>">
+                                <input type="hidden" name="message_id" value="<?php echo $contactMessage->id; ?>">
+                                <button class="btn btn-danger delete-single" data-id="<?= htmlspecialchars($contactMessage->id) ?>">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
