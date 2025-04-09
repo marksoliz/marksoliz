@@ -59,20 +59,12 @@ class Contact
             throw new InvalidArgumentException('Expected an array of IDs.');
         }
 
-        // Sanitize the IDs to ensure they are integers
-        $ids = array_map('intval', $ids);
+        $ids = array_map('intval', $ids); // Sanitize IDs
+        $idList = implode(',', $ids); // Convert to comma-separated string
 
-        // Convert the array of IDs into a comma-separated string
-        $idList = implode(',', $ids);
-
-        // Prepare the SQL query to delete multiple rows
-        $query = "DELETE FROM $this->table WHERE id IN ($idList)";
+        $query = "DELETE FROM contact_form WHERE id IN ($idList)";
         $stmt = $this->conn->prepare($query);
 
-        // Execute the query
         return $stmt->execute();
-
-        redirect('contact_form.php?success=1');
-        exit();
     }
 }
