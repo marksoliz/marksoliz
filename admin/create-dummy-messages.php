@@ -1,6 +1,6 @@
 <?php
 require_once '../init.php'; // Include necessary files
-
+checkUserLoggedIn();
 if (isPostRequest()) {
     $message = new Contact();
 

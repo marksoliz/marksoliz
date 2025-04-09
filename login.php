@@ -85,9 +85,9 @@ if (isPostRequest()) {
                                 class="form-control"
                                 placeholder="Enter your password"
                                 required />
-                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                            <span class="input-group-text" id="togglePassword">
                                 <i class="fas fa-eye"></i>
-                            </button>
+                            </span>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
@@ -106,3 +106,7 @@ if (isPostRequest()) {
     <?php include 'assets/includes/footer.php';
     ?>
 </div>
+
+<script>
+
+</script>

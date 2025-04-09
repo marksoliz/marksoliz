@@ -49,9 +49,13 @@
 </script>
 
 <script>
-    document.getElementById('togglePassword').addEventListener('click', function() {
+    document.getElementById('togglePassword').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent any default behavior
+
         const passwordField = document.getElementById('password');
         const icon = this.querySelector('i');
+
+        // Toggle password visibility
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
             icon.classList.remove('fa-eye');
