@@ -5,8 +5,8 @@ $contactMessages = $messages->getContactFormSubmissions();
 ?>
 
 
-<div class="table-responsive">
-    <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="container">
+    <div class="container-fluid d-flex justify-content-between align-items-center mb-3">
         <button id="deleteSelectedBtn" class="btn btn-danger btn-rounded-pill my-2 ">Delete Selected Messages</button>
 
         <!-- Dummy Data Button -->
@@ -20,7 +20,7 @@ $contactMessages = $messages->getContactFormSubmissions();
             <button name="reorder_articles" class="btn btn-warning btn-rounded-pill" type="submit">Reoder Article ID's</button>
         </form>
     </div>
-    <table class="table table-striped table-hover table-bordered">
+    <table class="table table-striped table-hover table-bordered table-responsive">
         <thead class="table-dark">
             <tr>
                 <th>
