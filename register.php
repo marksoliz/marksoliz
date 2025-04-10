@@ -116,23 +116,33 @@ if (isPostRequest()) {
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            class="form-control"
-                            placeholder="Enter your password"
-                            required />
+                        <div class="input-group">
+                            <input
+                                type="password"
+                                name="password"
+                                id="password"
+                                class="form-control"
+                                placeholder="Enter your password"
+                                required />
+                            <span class="input-group-text" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="form-label">Confirm Password</label>
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            id="confirmPassword"
-                            class="form-control"
-                            placeholder="Confirm your password"
-                            required />
+                        <div class="input-group">
+                            <input
+                                type="password"
+                                name="confirmPassword"
+                                id="confirmPassword"
+                                class="form-control"
+                                placeholder="Confirm your password"
+                                required />
+                            <span class="input-group-text" id="toggleConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <button type="submit" class="btn btn-primary w-100">Sign Up</button>
@@ -149,3 +159,9 @@ if (isPostRequest()) {
     <?php include 'assets/includes/footer.php';
     ?>
 </div>
+
+<script>
+
+
+
+</script>

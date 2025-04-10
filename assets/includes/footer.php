@@ -66,6 +66,23 @@
             icon.classList.add('fa-eye');
         }
     });
+
+    document.getElementById('toggleConfirmPassword').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const confirmPasswordField = document.getElementById('confirmPassword');
+        const icon = this.querySelector('i');
+
+        if (confirmPasswordField.type === 'password') {
+            confirmPasswordField.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            confirmPasswordField.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    });
 </script>
 
 </body>
