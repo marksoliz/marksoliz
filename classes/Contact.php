@@ -30,10 +30,21 @@ class Contact
     }
 
     // Get all contact form submissions
-    public function getContactFormSubmissions()
+    public function getContactFormSubmissions($offset = 0, $perPage = null)
     {
         $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+
+        if ($perPage !== null) {
+            $query .= " LIMIT :offset, :perPage";
+        }
+
         $stmt = $this->conn->prepare($query);
+
+        if ($perPage !== null) {
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }

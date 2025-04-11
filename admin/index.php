@@ -36,7 +36,7 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Dashboard</h1>
+            <h1 class="mt-4">Admin Area</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-4">
 
