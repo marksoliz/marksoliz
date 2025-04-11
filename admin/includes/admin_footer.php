@@ -23,7 +23,7 @@
 <script>
     function confirmDeleteMessage(messageId) {
         if (confirm('Are you sure you want to delete this message?')) {
-            alert('Article ' + messageId + ' deleted.');
+            alert('Message ID ' + messageId + ' deleted.');
             return true; // Proceed with the deletion
 
         } else {
