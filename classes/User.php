@@ -182,4 +182,33 @@ class User
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    //Generate Dummy Users
+    public function generateDummyUsers($count = null)
+    {
+        $query = "INSERT INTO " . $this->table . " (username, email, password, firstName, lastName) VALUES (:username, :email, :password, :firstName, :lastName)";
+        $stmt = $this->conn->prepare($query);
+
+        for ($i = 0; $i < $count; $i++) {
+            $username = 'user' . rand(1, 10000);
+            $email = 'user' . rand(1, 10000) . '@example.com';
+            $password = password_hash('password', PASSWORD_BCRYPT);
+            $firstName = 'First' . rand(1, 10000);
+            $lastName = 'Last' . rand(1, 10000);
+
+            // Bind parameters
+            $stmt->bindParam(':username', $username);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':firstName', $firstName);
+            $stmt->bindParam(':lastName', $lastName);
+
+            // Execute the query
+            if (!$stmt->execute()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
