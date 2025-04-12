@@ -29,7 +29,7 @@
         } else {
             return false; // Cancel the deletion
         }
-    }
+    };
 
     // Select / Deselect all checkboxes
     document.getElementById('selectAllCheckbox').onclick = function() {
@@ -38,6 +38,7 @@
             checkbox.checked = this.checked;
         }
     };
+
 
     // Delete selected messages
     document.getElementById('deleteSelectedBtn').onclick = function() {
@@ -56,7 +57,7 @@
         if (confirm("Are you sure you want to delete the selected messages?")) {
             sendDeleteRequest(selectIDs);
         }
-    }
+    };
 
     // Function to send delete using ajax
     function sendDeleteRequest(messageIds) {
@@ -79,51 +80,20 @@
         xhr.send(JSON.stringify({
             message_ids: messageIds
         }));
-    }
+    };
 
-    // Delete selected Users
-    document.getElementById('deleteSelectedUserBtn').onclick = function() {
-        let selectIDs = [];
-        let checkboxes = document.querySelectorAll('.userCheckbox:checked');
 
-        checkboxes.forEach((checkbox) => {
-            selectIDs.push(checkbox.value);
-        });
 
-        console.log("Selected IDs:", selectIDs); // Debugging line
 
-        if (selectIDs.length === 0) {
-            alert("Please select at least one user to delete.");
-            return;
+    // Confirm delete user
+    function confirmDeleteUser(userId) {
+        if (confirm('Are you sure you want to delete this user?')) {
+            alert('User ID ' + userId + ' deleted.');
+            return true; // Proceed with the deletion
+        } else {
+            return false; // Cancel the deletion
         }
-
-        if (confirm("Are you sure you want to delete the selected user/users?")) {
-            sendUserDeleteRequest(selectIDs);
-        }
-    }
-
-    // Function to send delete using ajax
-    function sendUserDeleteRequest(userIds) {
-
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", "<?php echo base_url('admin/delete-selected-users.php'); ?>", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                // Handle the response from the server
-                let response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    alert("Users deleted successfully!");
-                    location.reload(); // Reload the page to see the changes
-                } else {
-                    alert("Error deleting user: " + response.message);
-                }
-            }
-        };
-        xhr.send(JSON.stringify({
-            user_ids: userIds
-        }));
-    }
+    };
 </script>
 </body>
 

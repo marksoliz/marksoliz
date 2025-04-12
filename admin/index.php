@@ -59,6 +59,13 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
                         <li class="breadcrumb-item active " aria-current="page">Add User</li>';
                             break;
 
+                        case 'edit_user';
+
+                            echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                        <li class="breadcrumb-item">Users</li>
+                        <li class="breadcrumb-item active " aria-current="page">Edit User</li>';
+                            break;
+
                         case 'contact_form';
 
                             echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
@@ -127,6 +134,11 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
                 case 'add_user';
 
                     include "includes/add_user.php";
+                    break;
+
+                case 'edit_user';
+
+                    include "includes/edit_user.php";
                     break;
 
                 case 'contact_form';

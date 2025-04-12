@@ -1,6 +1,6 @@
 <?php
 require_once '../init.php'; // Include necessary files
-//checkUserLoggedIn();
+checkUserLoggedIn();
 
 header('Content-Type: application/json');
 

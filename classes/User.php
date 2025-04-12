@@ -125,10 +125,21 @@ class User
     }
 
     // Get all users
-    public function getAllUsers()
+    public function getAllUsers($offset = 0, $perPage = null)
     {
         $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+
+        if ($perPage !== null) {
+            $query .= " LIMIT :offset, :perPage";
+        }
+
         $stmt = $this->conn->prepare($query);
+
+        if ($perPage !== null) {
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -219,5 +230,42 @@ class User
         }
 
         return true;
+    }
+
+    // Reorder users
+    public function reorderUsers()
+    {
+        try {
+            // Begin a transaction
+            $this->conn->beginTransaction();
+
+            // Fetch all users ordered by the current ID
+            $query = "SELECT id FROM " . $this->table . " ORDER BY id ASC";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Reset the ID counter
+            $newId = 1;
+
+            // Update each user's ID sequentially
+            foreach ($users as $user) {
+                $query = "UPDATE " . $this->table . " SET id = :newId WHERE id = :currentId";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':newId', $newId, PDO::PARAM_INT);
+                $stmt->bindParam(':currentId', $user['id'], PDO::PARAM_INT);
+                $stmt->execute();
+                $newId++;
+            }
+
+            // Commit the transaction
+            $this->conn->commit();
+
+            return true;
+        } catch (Exception $e) {
+            // Roll back the transaction in case of an error
+            $this->conn->rollBack();
+            return false;
+        }
     }
 }
