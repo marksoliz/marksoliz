@@ -49,7 +49,7 @@ $users = $user->getAllUsers($offset, $perPage);
                 <?php foreach ($users as $user): ?>
                     <tr>
                         <td>
-                            <input type="checkbox" class="messageCheckbox" value="<?= htmlspecialchars($user->id) ?>" />
+                            <input type="checkbox" class="userCheckbox" value="<?= htmlspecialchars($user->id) ?>" />
                         </td>
                         <td><?= htmlspecialchars($user->id) ?></td>
                         <td><?= htmlspecialchars($user->username) ?></td>
@@ -59,7 +59,7 @@ $users = $user->getAllUsers($offset, $perPage);
                         <td><?= htmlspecialchars(date('F j, Y', strtotime($user->created_at))) ?></td>
                         <td><?= htmlspecialchars($user->user_role) ?></td>
                         <td>
-                            <form onsubmit="return confirmDeleteMessage(<?php echo $user->id; ?>)" method="post" action="<?php echo base_url('admin/delete-article.php'); ?>">
+                            <form onsubmit="return confirmDeleteMessage(<?php echo $user->id; ?>)" method="post" action="<?php echo base_url('admin/delete-user.php'); ?>">
                                 <input type="hidden" name="message_id" value="<?php echo $user->id; ?>">
                                 <button class="btn btn-danger">Delete</button>
                             </form>

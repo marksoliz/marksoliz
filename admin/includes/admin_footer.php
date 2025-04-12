@@ -80,6 +80,50 @@
             message_ids: messageIds
         }));
     }
+
+    // Delete selected Users
+    document.getElementById('deleteSelectedUserBtn').onclick = function() {
+        let selectIDs = [];
+        let checkboxes = document.querySelectorAll('.userCheckbox:checked');
+
+        checkboxes.forEach((checkbox) => {
+            selectIDs.push(checkbox.value);
+        });
+
+        console.log("Selected IDs:", selectIDs); // Debugging line
+
+        if (selectIDs.length === 0) {
+            alert("Please select at least one user to delete.");
+            return;
+        }
+
+        if (confirm("Are you sure you want to delete the selected user/users?")) {
+            sendUserDeleteRequest(selectIDs);
+        }
+    }
+
+    // Function to send delete using ajax
+    function sendUserDeleteRequest(userIds) {
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "<?php echo base_url('admin/delete-selected-users.php'); ?>", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Handle the response from the server
+                let response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    alert("Users deleted successfully!");
+                    location.reload(); // Reload the page to see the changes
+                } else {
+                    alert("Error deleting user: " + response.message);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({
+            user_ids: userIds
+        }));
+    }
 </script>
 </body>
 

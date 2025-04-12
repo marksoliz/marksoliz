@@ -183,6 +183,15 @@ class User
         return $stmt->execute();
     }
 
+    // Delete selected users
+    public function deleteSelectedUsers($userIds)
+    {
+        $ids = implode(',', array_map('intval', $userIds)); // Sanitize IDs
+        $query = "DELETE FROM " . $this->table . " WHERE id IN ($ids)";
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute();
+    }
+
     //Generate Dummy Users
     public function generateDummyUsers($count = null)
     {
