@@ -55,7 +55,7 @@ $contactMessages = $messages->getContactFormSubmissions($offset, $perPage);
                         <td><?= htmlspecialchars($contactMessage->email) ?></td>
                         <td><?= htmlspecialchars($contactMessage->subject) ?></td>
                         <td><?= htmlspecialchars($contactMessage->message) ?></td>
-                        <td><?= htmlspecialchars($contactMessage->created_at) ?></td>
+                        <td><?= htmlspecialchars(date('F j, Y', strtotime($contactMessage->created_at))) ?></td>
                         <td>
                             <form onsubmit="return confirmDeleteMessage(<?php echo $contactMessage->id; ?>)" method="post" action="<?php echo base_url('admin/delete-message.php'); ?>">
                                 <input type="hidden" name="message_id" value="<?php echo $contactMessage->id; ?>">

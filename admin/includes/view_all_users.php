@@ -19,12 +19,12 @@ $users = $user->getAllUsers($offset, $perPage);
 
         <!-- Dummy Data Button -->
         <form action="<?php echo base_url('admin/create-dummy-users.php') ?>" method="post" class="d-flex align-items-center">
-            <label class="form-label me-2" for="userCount">Number of Messages:</label>
+            <label class="form-label me-2" for="userCount">Number of Users:</label>
             <input style="width: 100px" type="number" name="userCount" id="userCount" class="form-control me-2" value="" min="1" max="100">
             <button id="userCount" class="btn btn-primary btn-rounded-pill" type="submit">Generate Dummy Users</button>
         </form>
 
-        <form action="<?php echo base_url('reorder-articles.php') ?>" method="post" class="">
+        <form action="<?php echo base_url('admin/reorder-users.php') ?>" method="post" class="">
             <button name="reorder_articles" class="btn btn-warning btn-rounded-pill" type="submit">Reorder Article ID's</button>
         </form>
     </div>
@@ -35,30 +35,32 @@ $users = $user->getAllUsers($offset, $perPage);
                     <input type="checkbox" id="selectAllCheckbox" />
                 </th>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Username</th>
                 <th>Email</th>
-                <th>Subject</th>
-                <th>Message</th>
-                <th>Date</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date Joined</th>
+                <th>Role</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <?php if ($contactMessages): ?>
-                <?php foreach ($contactMessages as $contactMessage): ?>
+            <?php if ($users): ?>
+                <?php foreach ($users as $user): ?>
                     <tr>
                         <td>
-                            <input type="checkbox" class="messageCheckbox" value="<?= htmlspecialchars($contactMessage->id) ?>" />
+                            <input type="checkbox" class="messageCheckbox" value="<?= htmlspecialchars($user->id) ?>" />
                         </td>
-                        <td><?= htmlspecialchars($contactMessage->id) ?></td>
-                        <td><?= htmlspecialchars($contactMessage->name) ?></td>
-                        <td><?= htmlspecialchars($contactMessage->email) ?></td>
-                        <td><?= htmlspecialchars($contactMessage->subject) ?></td>
-                        <td><?= htmlspecialchars($contactMessage->message) ?></td>
-                        <td><?= htmlspecialchars($contactMessage->created_at) ?></td>
+                        <td><?= htmlspecialchars($user->id) ?></td>
+                        <td><?= htmlspecialchars($user->username) ?></td>
+                        <td><?= htmlspecialchars($user->email) ?></td>
+                        <td><?= htmlspecialchars($user->firstName) ?></td>
+                        <td><?= htmlspecialchars($user->lastName) ?></td>
+                        <td><?= htmlspecialchars(date('F j, Y', strtotime($user->created_at))) ?></td>
+                        <td><?= htmlspecialchars($user->user_role) ?></td>
                         <td>
-                            <form onsubmit="return confirmDeleteMessage(<?php echo $contactMessage->id; ?>)" method="post" action="<?php echo base_url('admin/delete-message.php'); ?>">
-                                <input type="hidden" name="message_id" value="<?php echo $contactMessage->id; ?>">
+                            <form onsubmit="return confirmDeleteMessage(<?php echo $user->id; ?>)" method="post" action="<?php echo base_url('admin/delete-article.php'); ?>">
+                                <input type="hidden" name="message_id" value="<?php echo $user->id; ?>">
                                 <button class="btn btn-danger">Delete</button>
                             </form>
                         </td>

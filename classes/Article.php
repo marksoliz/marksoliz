@@ -4,7 +4,7 @@ class Article
 {
     // Database connection
     private $conn;
-    private $table = 'articles';
+    private $table = 'blog_posts';
 
     public function __construct()
     {
