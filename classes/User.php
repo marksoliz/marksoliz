@@ -155,13 +155,14 @@ class User
     }
 
     // Update user
-    public function updateUser($id, $firstName, $lastName, $username, $email, $password = null)
+    public function updateUser($id, $firstName, $lastName, $username, $email, $password = null, $role)
     {
         // Sanitize the input
         $firstName = htmlspecialchars(strip_tags($firstName));
         $lastName = htmlspecialchars(strip_tags($lastName));
         $username = htmlspecialchars(strip_tags($username));
         $email = htmlspecialchars(strip_tags($email));
+
 
         // Prepare the query
         if ($password) {

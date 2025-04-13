@@ -94,6 +94,12 @@ body {
   text-transform: uppercase; /* Converts text to uppercase */
 }
 
+.hero h1.display-4,
+.hero p.display-6,
+.hero p.lead {
+  color: white;
+}
+
 .hero img {
   border-radius: 50%;
   margin-bottom: 20px;

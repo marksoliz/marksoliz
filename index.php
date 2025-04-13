@@ -11,7 +11,7 @@
   <!-- Hero Section -->
   <header class="hero montserrat-hero">
     <div class="container">
-      <h1 class="display-4">Mark Soliz</h1>
+      <h1 class="display-4 montserrat-hero">Mark Soliz</h1>
       <p class="display-6">
         <span class="text-part">Web Development</span> /
         <span class="text-part">Web Hosting</span> /
