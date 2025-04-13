@@ -625,7 +625,7 @@ mark {
   color: #000;
   display: inline;
   text-decoration: none;
-  background-image: linear-gradient(#3deaa4, #3deaa4);
+  background-image: linear-gradient(rgba(13, 110, 253, 0.25), #0d6efd);
   background-position: 0% 80%;
   background-repeat: no-repeat;
   background-size: 0% 8px;
@@ -780,7 +780,7 @@ a.post-title-sm:hover {
   color: inherit !important;
   display: inline;
   text-decoration: none;
-  background-image: linear-gradient(#3deaa4, #3deaa4);
+  background-image: linear-gradient(rgba(13, 110, 253, 0.25), #0d6efd);
   background-position: 0% 110%;
   background-repeat: no-repeat;
   background-size: 100% 3px;
