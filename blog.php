@@ -1,5 +1,8 @@
 <?php include "./assets/includes/header.php";
 
+$article = new Article();
+
+
 ?>
 
 <div class="d-flex flex-column min-vh-100 bg-image">

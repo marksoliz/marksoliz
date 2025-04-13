@@ -12,11 +12,40 @@ class Article
         $this->conn = $database->getConnection();
     }
 
+    // Get all published articles
+    public function getPublishedArticles()
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE status = 'published' ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    // Get all drafts
+    public function getDrafts()
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE status = 'draft' ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     // Get all articles
-    public function getArticles()
+    public function getArticles($offset = 0, $perPage = null)
     {
         $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+
+        if ($perPage !== null) {
+            $query .= " LIMIT :offset, :perPage";
+        }
+
         $stmt = $this->conn->prepare($query);
+
+        if ($perPage !== null) {
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
@@ -81,15 +110,18 @@ class Article
     }
 
     // Create article
-    public function createArticle($title, $date, $content, $image)
+    public function createArticle($title, $date, $content, $image, $categoryId, $tags)
     {
-        $query = "INSERT INTO " . $this->table . " (title, content, image, created_at, user_id) VALUES (:title, :content, :image, :created_at, :user_id)";
+        $query = "INSERT INTO " . $this->table . " (title, content, image, created_at, user_id, category_id) VALUES (:title, :content, :image, :created_at, :user_id, :category_id, :tags)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':content', $content, PDO::PARAM_STR);
+
         $stmt->bindParam(':image', $image, PDO::PARAM_STR);
         $stmt->bindParam(':created_at', $date, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
+        $stmt->bindParam(':tags', $tags, PDO::PARAM_STR);
         return $stmt->execute();
     }
 

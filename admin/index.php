@@ -98,6 +98,14 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
                         <li class="breadcrumb-item active " aria-current="page">Add Post</li>';
                             break;
 
+                        case 'edit_post';
+
+                            echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                        <li class="breadcrumb-item">Pages</li>
+                        <li class="breadcrumb-item">Blog</li>
+                        <li class="breadcrumb-item active " aria-current="page">Edit Post</li>';
+                            break;
+
                         case 'view_all_comments';
 
                             echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
@@ -154,6 +162,12 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
                 case 'view_all_posts';
 
                     include "includes/view_all_posts.php";
+                    break;
+
+                case 'edit_post';
+
+                    include "includes/edit_post.php";
+
                     break;
 
                 case 'add_post';
