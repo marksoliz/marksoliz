@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Register the user
     if ($addUser->register($firstName, $lastName, $username, $email, $password)) {
         // Redirect or show success message
-        $message = "<div class='alert alert-success'>User added successfully!</div>";
+        $message = '<div class = "alert alert-success">User added successfully! <a href="index.php">Dashboard</a></div>';
     } else {
         // Show error message
         $error = "<div class='alert alert-danger'>Failed to add user. Please try again.</div>";

@@ -63,6 +63,7 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
 
                             echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
                         <li class="breadcrumb-item">Users</li>
+                        <li class="breadcrumb-item"><a href="index.php?source=view_all_users">View All Users</a></li>
                         <li class="breadcrumb-item active " aria-current="page">Edit User</li>';
                             break;
 
