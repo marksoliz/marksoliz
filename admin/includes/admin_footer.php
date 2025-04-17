@@ -21,6 +21,15 @@
 <script src="js/datatables-simple-demo.js"></script>
 
 <script>
+    const quill = new Quill('#editor', {
+        modules: {
+            syntax: true,
+            toolbar: '#toolbar-container',
+        },
+        placeholder: 'Your content here...',
+        theme: 'snow',
+    });
+
     function confirmDeleteMessage(messageId) {
         if (confirm('Are you sure you want to delete this message?')) {
             alert('Message ID ' + messageId + ' deleted.');
@@ -95,6 +104,10 @@
         }
     };
 </script>
+
+
+
+
 </body>
 
 </html>
