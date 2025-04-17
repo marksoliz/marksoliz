@@ -11,7 +11,7 @@ class User
         $this->conn = $database->getConnection();
     }
 
-    // Does User Exsists
+    // Does User Exist
     public function userExists($username)
     {
         // Sanitize the input
@@ -56,29 +56,31 @@ class User
     // Register method
     public function register($firstName, $lastName, $username, $email, $password)
     {
-        // Sanitize the input
-        $firstName = htmlspecialchars(strip_tags($firstName));
-        $lastName = htmlspecialchars(strip_tags($lastName));
-        $username = htmlspecialchars(strip_tags($username));
-        $email = htmlspecialchars(strip_tags($email));
-        $password = htmlspecialchars(strip_tags($password));
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-
-        // Insert the user into the database
-        $query = "INSERT INTO " . $this->table . " (username, email, password, firstName, lastName) VALUES (:username, :email, :password, :firstName, :lastName)";
+        // Check if the username already exists
+        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE username = :username";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $hashedPassword);
-        $stmt->bindParam(':firstName', $firstName);
-        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
 
-        // Execute the query
-        if ($stmt->execute()) {
-            return true;
+        if ($count > 0) {
+            throw new Exception("The username '$username' is already taken.");
         }
 
-        return false;
+        // Proceed with the insertion
+        $query = "INSERT INTO " . $this->table . " (firstName, lastName, username, email, password) 
+                  VALUES (:firstName, :lastName, :username, :email, :password)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':firstName', $firstName, PDO::PARAM_STR);
+        $stmt->bindParam(':lastName', $lastName, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+
+        // Hash the password and bind it
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+        $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 
     // Login method
@@ -198,7 +200,10 @@ class User
     // Delete selected users
     public function deleteSelectedUsers($userIds)
     {
-        $ids = implode(',', array_map('intval', $userIds)); // Sanitize IDs
+        // Sanitize IDs
+        $sanitizedIds = array_map('intval', $userIds);
+        $ids = implode(',', $sanitizedIds);
+
         $query = "DELETE FROM " . $this->table . " WHERE id IN ($ids)";
         $stmt = $this->conn->prepare($query);
         return $stmt->execute();

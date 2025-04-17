@@ -39,80 +39,84 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h2>Create Blog Post</h2>
     <?php if (!empty($message)) echo "<div class='alert alert-success'>$message</div>"; ?>
     <?php if (!empty($error)) echo "<div class='alert alert-danger'>$error</div>"; ?>
+    <div class="row justify-content-center">
+        <div class="col-lg-8"> <!-- Adjust the width using Bootstrap's grid system -->
+            <form method="POST" action="" enctype="multipart/form-data">
+                <div class="mb-3 md-4" style="max-width: 300px;"> <!-- Added inline style for smaller width -->
+                    <label for="category_id" class="form-label">Category</label>
+                    <select class="form-select" id="category_id" name="category_id" required>
+                        <option value="1">Travel</option>
+                        <option value="2">Lifestyle</option>
+                        <option value="3">Technology</option>
+                        <!-- Add more categories as needed -->
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <!-- Begin Quil Toolbar -->
+                <div id="toolbar-container">
+                    <span class="ql-formats">
+                        <select class="ql-font"></select>
+                        <select class="ql-size"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <select class="ql-color"></select>
+                        <select class="ql-background"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-script" value="sub"></button>
+                        <button class="ql-script" value="super"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-header" value="1"></button>
+                        <button class="ql-header" value="2"></button>
+                        <button class="ql-blockquote"></button>
+                        <button class="ql-code-block"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                        <button class="ql-indent" value="-1"></button>
+                        <button class="ql-indent" value="+1"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-direction" value="rtl"></button>
+                        <select class="ql-align"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-link"></button>
+                        <button class="ql-image"></button>
+                        <button class="ql-video"></button>
+                        <button class="ql-formula"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-clean"></button>
+                    </span>
+                </div>
+                <!-- End Quill toolbar -->
+                <div class="mb-3" id="editor">
+                    <label for="content" class="form-label"></label>
+                    <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+                </div>
 
-    <form method="POST" action="" enctype="multipart/form-data">
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+                <div class="mb-3">
+                    <label for="tags" class="form-label">Tags (comma-separated)</label>
+                    <input type="text" class="form-control" id="tags" name="tags">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="image" name="image">
+                </div>
+                <button type="submit" class="btn btn-primary mb-4">Create Post</button>
+            </form>
         </div>
-        <!-- Begin Quil Toolbar -->
-        <div id="toolbar-container">
-            <span class="ql-formats">
-                <select class="ql-font"></select>
-                <select class="ql-size"></select>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <button class="ql-underline"></button>
-                <button class="ql-strike"></button>
-            </span>
-            <span class="ql-formats">
-                <select class="ql-color"></select>
-                <select class="ql-background"></select>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-script" value="sub"></button>
-                <button class="ql-script" value="super"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-header" value="1"></button>
-                <button class="ql-header" value="2"></button>
-                <button class="ql-blockquote"></button>
-                <button class="ql-code-block"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-list" value="ordered"></button>
-                <button class="ql-list" value="bullet"></button>
-                <button class="ql-indent" value="-1"></button>
-                <button class="ql-indent" value="+1"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-direction" value="rtl"></button>
-                <select class="ql-align"></select>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-link"></button>
-                <button class="ql-image"></button>
-                <button class="ql-video"></button>
-                <button class="ql-formula"></button>
-            </span>
-            <span class="ql-formats">
-                <button class="ql-clean"></button>
-            </span>
-        </div>
-        <!-- End Quill toolbar -->
-        <div class="mb-3" id="editor">
-            <label for="content" class="form-label"></label>
-            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
-        </div>
-        <div class="mb-3">
-            <label for="category_id" class="form-label">Category</label>
-            <select class="form-select" id="category_id" name="category_id" required>
-                <option value="1">Travel</option>
-                <option value="2">Lifestyle</option>
-                <option value="3">Technology</option>
-                <!-- Add more categories as needed -->
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="tags" class="form-label">Tags (comma-separated)</label>
-            <input type="text" class="form-control" id="tags" name="tags">
-        </div>
-        <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input type="file" class="form-control" id="image" name="image">
-        </div>
-        <button type="submit" class="btn btn-primary mb-4">Create Post</button>
-    </form>
+    </div>
 </div>

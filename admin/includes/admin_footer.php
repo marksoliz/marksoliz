@@ -29,7 +29,8 @@
         placeholder: 'Your content here...',
         theme: 'snow',
     });
-
+</script>
+<script>
     function confirmDeleteMessage(messageId) {
         if (confirm('Are you sure you want to delete this message?')) {
             alert('Message ID ' + messageId + ' deleted.');

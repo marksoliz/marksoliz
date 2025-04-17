@@ -1,23 +1,22 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $role = $_POST['role']; // User role
+    $firstName = htmlspecialchars(trim($_POST['firstName']), ENT_QUOTES, 'UTF-8');
+    $lastName = htmlspecialchars(trim($_POST['lastName']), ENT_QUOTES, 'UTF-8');
+    $username = htmlspecialchars(trim($_POST['username']), ENT_QUOTES, 'UTF-8');
+    $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
+    $password = $_POST['password']; // Password should be hashed, not sanitized
+    $role = htmlspecialchars(trim($_POST['role']), ENT_QUOTES, 'UTF-8');
 
-    // Add User
-    $addUser = new User();
+    try {
+        $addUser = new User();
 
-    // Register the user
-    if ($addUser->register($firstName, $lastName, $username, $email, $password)) {
-        // Redirect or show success message
-        $message = '<div class = "alert alert-success">User added successfully! <a href="index.php">Dashboard</a></div>';
-    } else {
-        // Show error message
-        $error = "<div class='alert alert-danger'>Failed to add user. Please try again.</div>";
+        // Register the user
+        if ($addUser->register($firstName, $lastName, $username, $email, $password)) {
+            $message = '<div class="alert alert-success">User added successfully! <a href="index.php?source=view_all_users">View All Users</a></div>';
+        }
+    } catch (Exception $e) {
+        $error = "<div class='alert alert-danger'>" . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . "</div>";
     }
 }
 ?>
@@ -27,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php if (isset($message)) echo $message;
     else if (isset($error)) echo $error; ?>
     <div class="row justify-content-center">
-        <div class="col-md-6"> <!-- Adjust the width using Bootstrap's grid system -->
+        <div class="col-lg-8"> <!-- Adjust the width using Bootstrap's grid system -->
             <form method="POST" action="">
                 <div class="mb-3">
                     <label for="role" class="form-label">Role</label>
