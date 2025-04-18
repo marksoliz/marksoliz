@@ -32,23 +32,48 @@ class Category
     }
 
     // Create new category
-    public function createCategory($name, $description)
+    public function createCategory($name, $slug)
     {
-        $query = "INSERT INTO " . $this->table . " (name, description) VALUES (:name, :description)";
+        // Check if the slug already exists
+        $query = "SELECT COUNT(*) FROM categories WHERE slug = :slug";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            throw new Exception("The slug '$slug' already exists. Please choose a different category name.");
+        }
+
+        // Insert the new category
+        $query = "INSERT INTO categories (name, slug) VALUES (:name, :slug)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
         return $stmt->execute();
     }
 
     // Update category
-    public function updateCategory($id, $name, $description)
+    public function updateCategory($id, $name, $slug)
     {
-        $query = "UPDATE " . $this->table . " SET name = :name, description = :description WHERE id = :id";
+        // Check if the slug already exists for a different category
+        $query = "SELECT COUNT(*) FROM categories WHERE slug = :slug AND id != :id";
         $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            throw new Exception("The slug '$slug' already exists. Please choose a different category name.");
+        }
+
+        // Update the category
+        $query = "UPDATE categories SET name = :name, slug = :slug WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':description', $description, PDO::PARAM_STR);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
