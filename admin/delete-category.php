@@ -3,12 +3,12 @@ require_once '../init.php';
 checkUserLoggedIn();
 
 if (isPostRequest()) {
-    $messageId = getPostData('message_id', null);
-    $contact = new Contact();
+    $catId = getPostData('delete_cat_id', null);
+    $category = new Category();
 
-    if ($contact->deleteContactFormSubmission($messageId)) {
-        redirect('admin/index.php?source=contact_form');
+    if ($category->deleteCategory($catId)) {
+        redirect('admin/index.php?source=view_edit_categories');
     } else {
-        $_SESSION['error'] = "Failed to delete message.";
+        $_SESSION['error'] = "Failed to delete category.";
     }
 }

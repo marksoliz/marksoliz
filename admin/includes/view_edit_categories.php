@@ -89,8 +89,9 @@ $categories = $category->getAllCategories();
                             </td>
                             <td>
                                 <form onsubmit="return confirmDeleteCategory(<?php echo $cat->id; ?>)" method="post" action="<?php echo base_url('admin/delete-category.php'); ?>">
-                                    <input type="hidden" name="category_id" value="<?php echo $cat->id; ?>">
+                                    <input type="hidden" name="delete_cat_id" value="<?php echo $cat->id; ?>">
                                     <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>

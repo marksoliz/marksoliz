@@ -45,10 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-3 md-4" style="max-width: 300px;"> <!-- Added inline style for smaller width -->
                     <label for="category_id" class="form-label">Category</label>
                     <select class="form-select" id="category_id" name="category_id" required>
-                        <option value="1">Travel</option>
-                        <option value="2">Lifestyle</option>
-                        <option value="3">Technology</option>
-                        <!-- Add more categories as needed -->
+                        <?php
+                        // Fetch all categories using the getAllCategories() method
+                        $category = new Category();
+                        $categories = $category->getAllCategories();
+
+                        // Loop through the categories and display them as options
+                        foreach ($categories as $cat) {
+                            echo '<option value="' . htmlspecialchars($cat->id) . '">' . htmlspecialchars($cat->name) . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="mb-3">
