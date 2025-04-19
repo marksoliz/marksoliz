@@ -77,10 +77,18 @@ $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
 
                         case 'view_edit_categories';
 
-                            echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
-                        <li class="breadcrumb-item">Pages</li>
-                        <li class="breadcrumb-item">Categories</li>
-                        <li class="breadcrumb-item active " aria-current="page">View/Edit Categories</li>';
+                            if (isset($_GET['edit'])) {
+                                echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                  <li class="breadcrumb-item">Pages</li>
+                                  <li class="breadcrumb-item">Categories</li>
+                                  <li class="breadcrumb-item active " aria-current="page"><a href="index.php?source=view_edit_categories">Add Categories</a></li>
+                                  <li class="breadcrumb-item active " aria-current="page">Edit Categories</li>';
+                            } else {
+                                echo '<li class="breadcrumb-item"><a href="index.php">Dashboard</a></li>
+                                  <li class="breadcrumb-item">Pages</li>
+                                  <li class="breadcrumb-item">Categories</li>
+                                  <li class="breadcrumb-item active " aria-current="page">Add Categories</li>';
+                            }
                             break;
 
                         case 'view_all_posts';

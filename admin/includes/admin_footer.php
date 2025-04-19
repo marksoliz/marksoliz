@@ -106,7 +106,17 @@
     };
 </script>
 
+<script>
+    function confirmDeleteCategory(catID) {
+        if (confirm('Are you sure you want to delete this category?')) {
+            alert('Category ID ' + catID + ' deleted.');
+            return true; // Proceed with the deletion
 
+        } else {
+            return false; // Cancel the deletion
+        }
+    };
+</script>
 
 
 </body>
