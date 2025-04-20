@@ -118,8 +118,7 @@
 <!-- Summernote JS -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote-bs4.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 
 <script>
     $(document).ready(function() {
@@ -133,14 +132,33 @@
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link', 'picture', 'video']],
+                ['insert', ['codeblock', 'link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
             ],
             styleTags: [
                 'p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'
             ],
             fontNames: ['Arial', 'Courier New', 'Times New Roman', 'Verdana', 'Tahoma'],
-            fontSizes: ['8', '10', '12', '14', '16', '18', '24', '36', '48']
+            fontSizes: ['8', '10', '12', '14', '16', '18', '24', '36', '48'],
+            buttons: {
+                codeblock: function(context) {
+                    const ui = $.summernote.ui;
+                    const button = ui.button({
+                        contents: '<i class="note-icon-code"/> Code Block',
+                        tooltip: 'Insert <pre><code> block',
+                        click: function() {
+                            const range = context.invoke('editor.createRange');
+                            const text = range.toString();
+                            if (text.length > 0) {
+                                context.invoke('editor.insertText', `<pre><code>${text}</code></pre>`);
+                            } else {
+                                context.invoke('editor.insertText', `<pre><code>// your code here</code></pre>`);
+                            }
+                        }
+                    });
+                    return button.render();
+                }
+            }
         });
     });
 </script>
