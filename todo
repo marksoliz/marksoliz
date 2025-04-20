@@ -1,30 +1,48 @@
-<?php
-require_once '../../init.php'; // Include necessary files
-
-header('Content-Type: application/json');
-
-$response = ['success' => false, 'message' => ''];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    if (isset($data['message_ids']) && is_array($data['message_ids'])) {
-        $messageIds = $data['message_ids'];
-
-        try {
-            $message = new Contact();
-            $message->deleteSelectedMessages($messageIds);
-            $response['success'] = true;
-            $response['message'] = 'Messages deleted successfully!';
-        } catch (Exception $e) {
-            error_log('Error deleting messages: ' . $e->getMessage()); // Log the error
-            $response['message'] = 'Error deleting messages: ' . $e->getMessage();
-        }
-    } else {
-        $response['message'] = 'Invalid request! No message IDs provided.';
+<!-- Optional Styles -->
+<style>
+    code {
+        background-color: #f4f4f4;
+        padding: 2px 4px;
+        font-family: monospace;
     }
-} else {
-    $response['message'] = 'Invalid request method!';
-}
 
-echo json_encode($response);
+    pre {
+        background-color: #f4f4f4;
+        padding: 10px;
+        overflow-x: auto;
+        font-family: monospace;
+        border-radius: 4px;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('#editor').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['insert', ['codeblock', 'link', 'picture', 'video']],
+                ['view', ['codeview']]
+            ],
+            buttons: {
+                codeblock: function(context) {
+                    const ui = $.summernote.ui;
+                    const button = ui.button({
+                        contents: '<i class="note-icon-code"/> Code Block',
+                        tooltip: 'Insert <pre><code> block',
+                        click: function() {
+                            const range = context.invoke('editor.createRange');
+                            const text = range.toString();
+                            if (text.length > 0) {
+                                context.invoke('editor.insertText', `<pre><code>${text}</code></pre>`);
+                            } else {
+                                context.invoke('editor.insertText', `<pre><code>// your code here</code></pre>`);
+                            }
+                        }
+                    });
+                    return button.render();
+                }
+            }
+        });
+    });
+</script>

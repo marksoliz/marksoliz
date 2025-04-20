@@ -22,7 +22,7 @@ function base_path($path = "")
 // Function to return the path to the uploads folder
 function upload_path($filename)
 {
-    return base_path("uploads" . DIRECTORY_SEPARATOR . $filename);
+    return base_path("assets/blogImages" . DIRECTORY_SEPARATOR . $filename);
 }
 
 // Function to return the url to the uploads folder

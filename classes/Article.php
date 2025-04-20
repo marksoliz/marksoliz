@@ -109,19 +109,50 @@ class Article
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function generateUniqueSlug($title)
+    {
+        // Convert the title to a slug
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title), '-'));
+
+        // Check if the slug already exists
+        $originalSlug = $slug;
+        $count = 1;
+
+        while ($this->slugExists($slug)) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
+
+    private function slugExists($slug)
+    {
+        $query = "SELECT COUNT(*) FROM blog_posts WHERE slug = :slug";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
+    }
+
     // Create article
     public function createArticle($title, $date, $content, $image, $categoryId, $tags)
     {
-        $query = "INSERT INTO " . $this->table . " (title, content, image, created_at, user_id, category_id) VALUES (:title, :content, :image, :created_at, :user_id, :category_id, :tags)";
+        // Generate the slug
+        $slug = $this->generateUniqueSlug($title);
+
+        $query = "INSERT INTO blog_posts (title, content, user_id, created_at, image, status, category_id, tags, slug) 
+                  VALUES (:title, :content, :user_id, :created_at, :image, :status, :category_id, :tags, :slug)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':content', $content, PDO::PARAM_STR);
-
-        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
-        $stmt->bindParam(':created_at', $date, PDO::PARAM_STR);
         $stmt->bindParam(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+        $stmt->bindParam(':created_at', $date, PDO::PARAM_STR);
+        $stmt->bindParam(':image', $image, PDO::PARAM_STR);
+        $stmt->bindParam(':status', $status, PDO::PARAM_STR);
         $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
         $stmt->bindParam(':tags', $tags, PDO::PARAM_STR);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
         return $stmt->execute();
     }
 

@@ -15,7 +15,7 @@ class Category
     // Get all categories
     public function getAllCategories()
     {
-        $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+        $query = "SELECT * FROM " . $this->table . " ORDER BY id";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -92,6 +92,15 @@ class Category
         $query = "SELECT name FROM " . $this->table . " WHERE id = :id LIMIT 1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchColumn();
+    }
+
+    public function getArticleCountByCategoryId($categoryId)
+    {
+        $query = "SELECT COUNT(*) FROM blog_posts WHERE category_id = :category_id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchColumn();
     }
