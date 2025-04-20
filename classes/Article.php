@@ -33,7 +33,10 @@ class Article
     // Get all articles
     public function getArticles($offset = 0, $perPage = null)
     {
-        $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+        $query = "SELECT {$this->table}.*, categories.name AS category_name 
+                  FROM {$this->table} 
+                  LEFT JOIN categories ON {$this->table}.category_id = categories.id 
+                  ORDER BY {$this->table}.id DESC";
 
         if ($perPage !== null) {
             $query .= " LIMIT :offset, :perPage";

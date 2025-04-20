@@ -993,3 +993,16 @@ footer .section {
   box-shadow: none;
 }
 /*# sourceMappingURL=style.css.map */
+code {
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  font-family: monospace;
+}
+
+pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  overflow-x: auto;
+  font-family: monospace;
+  border-radius: 4px;
+}

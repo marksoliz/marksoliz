@@ -60,12 +60,12 @@ $articles = $article->getArticles($offset, $perPage);
                         <td><?= htmlspecialchars($article->content) ?></td>
                         <td><?= htmlspecialchars($article->image) ?></td>
                         <td><?= htmlspecialchars($article->status) ?></td>
-                        <td><?= htmlspecialchars(date('F j, Y', strtotime($user->created_at))) ?></td>
+                        <td><?= htmlspecialchars(date('F j, Y', strtotime($article->created_at))) ?></td>
                         <td><?= htmlspecialchars(date('F j, Y', strtotime($article->updated_at))) ?></td>
-                        <td><?= htmlspecialchars($article->tags) ?></td>
+                        <td><?= htmlspecialchars($article->category_name) ?></td>
                         <td><?= htmlspecialchars($article->tags) ?></td>
                         <td>
-                            <a href="<?php echo base_url('admin/index.php?source=edit_post&user_id=' . $user->id); ?>" class="btn btn-primary">Edit</a>
+                            <a href="index.php?source=edit_post&post_id=<?php echo $article->id ?>" class="btn btn-primary">Edit</a>
                         <td>
                             <form onsubmit="return confirmDeletePost(<?php echo $article->id; ?>)" method="post" action="<?php echo base_url('admin/delete-article.php'); ?>">
                                 <input type="hidden" name="article_id" value="<?php echo $article->id; ?>">

@@ -14,13 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Handle image upload
     $image = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-
         $imageName = basename($_FILES['image']['name']);
-        $uploadDir = upload_path($imageName);
+        $uploadDir = "assets/blogImages/"; // Relative path to the upload directory
         $imagePath = $uploadDir . $imageName;
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $imagePath)) {
-            $image = $imagePath;
+        // Move the uploaded file to the target directory
+        if (move_uploaded_file($_FILES['image']['tmp_name'], base_path($imagePath))) {
+            $image = $imagePath; // Store the relative path in the database
         } else {
             $error = "Failed to upload image.";
         }
