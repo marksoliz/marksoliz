@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Create the article
     if (empty($error) && $article->createArticle($title, $date, $content, $image, $categoryId, $tags)) {
-        $message = "Blog post created successfully!";
+        $message = "Blog post created successfully! View All Posts <a href='index.php?source=view_all_posts'>here</a>.";
     } else {
         $error = $error ?: "Failed to create blog post.";
     }

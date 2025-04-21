@@ -1,3 +1,17 @@
+<?php
+
+
+$article = new Article();
+// Fetch published random articles using the getPublishedRandomArticles() method
+$articles = $article->getRandomPublishedArticles();
+
+$category = new Category();
+// Fetch all categories using the getAllCategories() method
+
+$categories = $category->getAllCategories();
+
+?>
+
 <div class="container">
     <div class="row no-gutters-lg">
         <div class="col-12">
@@ -5,30 +19,32 @@
         </div>
         <div class="col-lg-8 mb-5 mb-lg-0">
             <div class="row">
-                <div class="col-12 mb-4">
-                    <article class="card article-card">
-                        <a href="article.html">
-                            <div class="card-image">
-                                <div class="post-info"> <span class="text-uppercase">04 Jun 2021</span>
-                                    <span class="text-uppercase">3 minutes read</span>
+                <?php foreach ($articles as $article): ?>
+                    <div class="col-12 mb-4">
+                        <article class="card article-card">
+                            <a href="article.php?id=<?= htmlspecialchars($article->id); ?>">
+                                <div class="card-image">
+                                    <div class="post-info"> <span class="text-uppercase"><?= htmlspecialchars(date('d M Y', strtotime($article->created_at))); ?></span>
+                                        <span class="text-uppercase"><?= htmlspecialchars($article->minutes); ?> minutes read</span>
+
+                                    </div>
+                                    <img loading="lazy" decoding="async" src="<?= base_url(htmlspecialchars($article->image)); ?>" alt="Post Thumbnail" class="w-100">
                                 </div>
-                                <img loading="lazy" decoding="async" src="/assets/blogImages/post/post-1.jpg" alt="Post Thumbnail" class="w-100">
+                            </a>
+                            <div class="card-body px-0 pb-1">
+                                <ul class="post-meta mb-2">
+                                    <li> <a href="#!">travel</a>
+                                        <a href="#!">news</a>
+                                    </li>
+                                </ul>
+                                <h2 class="h1"><a class="post-title" href="article.php?id=<?= htmlspecialchars($article->id); ?>"><?= htmlspecialchars($article->title); ?></a></h2>
+                                <p class="card-text"><?= getExcerpt($article->content, 150); ?></p>
+                                <div class="content"> <a class="read-more-btn" href="article.php?id=<?= htmlspecialchars($article->id); ?>">Read Full Article</a>
+                                </div>
                             </div>
-                        </a>
-                        <div class="card-body px-0 pb-1">
-                            <ul class="post-meta mb-2">
-                                <li> <a href="#!">travel</a>
-                                    <a href="#!">news</a>
-                                </li>
-                            </ul>
-                            <h2 class="h1"><a class="post-title" href="article.html">Is it Ethical to Travel Now?
-                                    With that Freedom Comes Responsibility.</a></h2>
-                            <p class="card-text">Heading Here is example of hedings. You can use this heading by following markdownify rules. For example: use # for heading 1 and use ###### for heading 6.</p>
-                            <div class="content"> <a class="read-more-btn" href="article.html">Read Full Article</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
+                        </article>
+                    </div>
+                <?php endforeach; ?>
                 <div class="col-md-6 mb-4">
                     <article class="card article-card article-card-sm h-100">
                         <a href="article.html">
@@ -290,9 +306,7 @@
                                 <ul class="widget-list">
 
                                     <?php
-                                    // Fetch all categories using the getAllCategories() method
-                                    $category = new Category();
-                                    $categories = $category->getAllCategories();
+
 
                                     // Loop through the categories and display them as options
                                     foreach ($categories as $cat) {

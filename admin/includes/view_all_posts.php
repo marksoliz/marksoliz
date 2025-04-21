@@ -57,7 +57,7 @@ $articles = $article->getArticles($offset, $perPage);
                         </td>
                         <td><?= htmlspecialchars($article->id) ?></td>
                         <td><?= htmlspecialchars($article->title) ?></td>
-                        <td><?= htmlspecialchars($article->content) ?></td>
+                        <td><?= htmlspecialchars(getExcerpt($article->content)); ?></td>
                         <td><img src="<?php echo base_url(htmlspecialchars($article->image)); ?>" alt="Post Image" class="img-fluid" style="max-width: 100px;"></td>
                         <td><?= htmlspecialchars($article->status) ?></td>
                         <td><?= htmlspecialchars(date('F j, Y', strtotime($article->created_at))) ?></td>

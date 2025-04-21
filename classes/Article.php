@@ -21,6 +21,16 @@ class Article
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    // Get random published articles
+    public function getRandomPublishedArticles($limit = 1)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE status = 'published' ORDER BY RAND() LIMIT :limit";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     // Get all drafts
     public function getDrafts()
     {
@@ -53,16 +63,7 @@ class Article
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    // Get Excerpt
-    public function getExcerpt($content, $limit = 200)
-    {
-        if (strlen($content) > $limit) {
-            $content = substr($content, 0, $limit);
-            $content = substr($content, 0, strrpos($content, ' '));
-            $content = $content . '...';
-        }
-        return $content;
-    }
+
 
     // Get single article   
     public function getArticleById($id)
@@ -238,8 +239,8 @@ class Article
             // Check if the user is the owner of the article
             if ($article->user_id == $_SESSION['user_id']) {
                 // Delete the image if it exists
-                if (!empty($article->image) && file_exists($article->image)) {
-                    if (!unlink($article->image)) {
+                if (!empty($article->image) && file_exists(base_path($article->image))) {
+                    if (!unlink(base_path($article->image))) {
                         return false;
                     }
                 }

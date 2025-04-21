@@ -113,3 +113,14 @@ function checkUserLoggedIn()
         redirect('login.php');
     }
 }
+
+// Get Excerpt
+function getExcerpt($content, $limit = 200)
+{
+    if (strlen($content) > $limit) {
+        $content = substr($content, 0, $limit);
+        $content = substr($content, 0, strrpos($content, ' '));
+        $content = $content . '...';
+    }
+    return $content;
+}
