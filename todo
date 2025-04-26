@@ -1,48 +1,6 @@
-<!-- Optional Styles -->
-<style>
-    code {
-        background-color: #f4f4f4;
-        padding: 2px 4px;
-        font-family: monospace;
-    }
-
-    pre {
-        background-color: #f4f4f4;
-        padding: 10px;
-        overflow-x: auto;
-        font-family: monospace;
-        border-radius: 4px;
-    }
-</style>
-
-<script>
-    $(document).ready(function() {
-        $('#editor').summernote({
-            height: 300,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['insert', ['codeblock', 'link', 'picture', 'video']],
-                ['view', ['codeview']]
-            ],
-            buttons: {
-                codeblock: function(context) {
-                    const ui = $.summernote.ui;
-                    const button = ui.button({
-                        contents: '<i class="note-icon-code"/> Code Block',
-                        tooltip: 'Insert <pre><code> block',
-                        click: function() {
-                            const range = context.invoke('editor.createRange');
-                            const text = range.toString();
-                            if (text.length > 0) {
-                                context.invoke('editor.insertText', `<pre><code>${text}</code></pre>`);
-                            } else {
-                                context.invoke('editor.insertText', `<pre><code>// your code here</code></pre>`);
-                            }
-                        }
-                    });
-                    return button.render();
-                }
-            }
-        });
-    });
-</script>
+<img 
+    loading="lazy" 
+    decoding="async" 
+    src="<?php echo file_exists(base_path($article->image)) ? base_url(htmlspecialchars($article->image)) : 'https://placehold.co/600x400?text=No+Image'; ?>" 
+    alt="Post Thumbnail" 
+    class="w-100">

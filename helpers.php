@@ -115,7 +115,7 @@ function checkUserLoggedIn()
 }
 
 // Get Excerpt
-function getExcerpt($content, $limit = 200)
+function getExcerpt($content, $limit = 100)
 {
     if (strlen($content) > $limit) {
         $content = substr($content, 0, $limit);

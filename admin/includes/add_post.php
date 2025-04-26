@@ -5,6 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = $_POST['content'];
     $categoryId = $_POST['category_id'];
     $tags = $_POST['tags'];
+    $minutes = $_POST['minutes'];
+    $featured = isset($_POST['featured']) ? 1 : 0;
     $date = date('Y-m-d H:i:s'); // Current timestamp
 
     $article = new Article();
@@ -27,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Create the article
-    if (empty($error) && $article->createArticle($title, $date, $content, $image, $categoryId, $tags)) {
+    if (empty($error) && $article->createArticle($title, $date, $content, $image, $categoryId, $tags, $minutes, $featured)) {
         $message = "Blog post created successfully! View All Posts <a href='index.php?source=view_all_posts'>here</a>.";
     } else {
         $error = $error ?: "Failed to create blog post.";
@@ -44,20 +46,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="row justify-content-center">
         <div class="col-lg-8"> <!-- Adjust the width using Bootstrap's grid system -->
             <form method="POST" action="" enctype="multipart/form-data" onsubmit="return submitForm();">
-                <div class="mb-3 md-4" style="max-width: 300px;"> <!-- Added inline style for smaller width -->
-                    <label for="category_id" class="form-label">Category</label>
-                    <select class="form-select" id="category_id" name="category_id" required>
-                        <?php
-                        // Fetch all categories using the getAllCategories() method
-                        $category = new Category();
-                        $categories = $category->getAllCategories();
+                <div class="mb-3 d-flex justify-content-between align-items-center"> <!-- Flex container -->
+                    <!-- Category Dropdown -->
+                    <div style="flex: 1; max-width: 30%;">
+                        <label for="category_id" class="form-label">Category</label>
+                        <select class="form-select" id="category_id" name="category_id" required>
+                            <?php
+                            // Fetch all categories using the getAllCategories() method
+                            $category = new Category();
+                            $categories = $category->getAllCategories();
 
-                        // Loop through the categories and display them as options
-                        foreach ($categories as $cat) {
-                            echo '<option value="' . htmlspecialchars($cat->id) . '">' . htmlspecialchars($cat->name) . '</option>';
-                        }
-                        ?>
-                    </select>
+                            // Loop through the categories and display them as options
+                            foreach ($categories as $cat) {
+                                echo '<option value="' . htmlspecialchars($cat->id) . '">' . htmlspecialchars($cat->name) . '</option>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <!-- Number Input -->
+                    <div style="flex: 1; max-width: 30%;">
+                        <label for="minutes" class="form-label">Minutes Read</label>
+                        <input type="number" class="form-control" id="minutes" name="minutes" min="1" max="10" required>
+                    </div>
+
+                    <!-- Slider Switch -->
+                    <div style="flex: 1; max-width: 30%;">
+                        <label for="featured" class="form-label">Featured</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="featured" name="featured">
+                            <label class="form-check-label" for="featured">Yes</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>

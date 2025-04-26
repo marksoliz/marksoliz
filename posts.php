@@ -20,9 +20,21 @@ $article = new Article();
                 $source = isset($_GET['source']) ? htmlspecialchars(trim($_GET['source'])) : '';
 
 
+                $slug = isset($_GET['slug']) ? htmlspecialchars(trim($_GET['slug'])) : '';
+
+
                 switch ($source) {
                     case 'viewCategories':
-                        include 'blog/categories.php';
+                        include 'blog/categories/';
+                        break;
+
+                    case 'article': // Check if the source is 'article'
+                        if (!empty($slug)) {
+                            // Include blog/article.php
+                            include 'blog/article.php';
+                        } else {
+                            echo "No article slug provided.";
+                        }
                         break;
 
                     default:

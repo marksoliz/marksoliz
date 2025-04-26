@@ -25,7 +25,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="<?php echo base_url('admin/profile.php') ?>">Profile</a></li>
-                <li><a class="dropdown-item" href="<?php echo base_url('index.php') ?>">View Main Site</a></li>
+                <li><a class="dropdown-item" href="<?php echo base_url('/') ?>">View Main Site</a></li>
                 <li>
                     <hr class="dropdown-divider" />
                 </li>

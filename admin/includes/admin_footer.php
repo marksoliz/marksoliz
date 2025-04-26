@@ -132,6 +132,7 @@
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
                 ['insert', ['codeblock', 'link', 'picture', 'video']],
                 ['view', ['fullscreen', 'codeview', 'help']]
             ],

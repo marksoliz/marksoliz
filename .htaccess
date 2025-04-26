@@ -1,0 +1,20 @@
+Options -Multiviews
+RewriteEngine On
+
+# Ensure the request is not for an existing file or directory
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirect SEO-friendly URLs to article.php
+#RewriteRule ^posts/article/([a-zA-Z0-9-]+)/?$ blog/article.php?slug=$1 [L,QSA]
+
+RewriteRule ^posts/article/([a-zA-Z0-9-]+)/?$ posts.php?source=article&slug=$1 [L,QSA]
+
+# Optional: Redirect category links
+RewriteRule ^blog/category/([a-zA-Z0-9-]+)/?$ blog/category.php?slug=$1 [L,QSA]
+
+# Rewrite SEO-friendly URLs for posts.php
+RewriteRule ^posts/?$ posts.php?source=$1 [L,QSA]
+
+RewriteRule ^index\.php$ /index/ [L,R=301]
+RewriteRule ^portfolio/?$ portfolio.php [L,QSA]

@@ -9,9 +9,9 @@ $isIndex = ($currentFile === 'index.php');
         <img
             class="img-fluid rounded-circle me-2"
             style="width: 50px; height: 50px"
-            src="./assets/images/mark-soliz-web-desing-hosting-digital-marketing.jpg"
+            src="<?php echo base_url("assets/images/mark-soliz-web-desing-hosting-digital-marketing.jpg") ?>"
             alt="Mark Soliz" />
-        <a class="navbar-brand fw-bold" href="<?php echo base_url("index.php") ?>">MarkSoliz.com</a>
+        <a class="navbar-brand fw-bold" href="<?php echo base_url("/") ?>">MarkSoliz.com</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -25,22 +25,22 @@ $isIndex = ($currentFile === 'index.php');
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php") ?>">Home</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("/") ?>">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php#about") ?>">About</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("/#about") ?>">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php#Services") ?>">Services</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("#Services") ?>">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("index.php#contact") ?>">Contact</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("#contact") ?>">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("portfolio.php") ?>">Portfolio</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("portfolio") ?>">Portfolio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("blog.php") ?>">Blog</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("posts/") ?>">Blog</a>
                 </li>
                 <?php if (!isUserLoggedIn()): ?>
 

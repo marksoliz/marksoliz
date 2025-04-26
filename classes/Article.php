@@ -24,7 +24,12 @@ class Article
     // Get random published articles
     public function getRandomPublishedArticles($limit = 1)
     {
-        $query = "SELECT * FROM " . $this->table . " WHERE status = 'published' ORDER BY RAND() LIMIT :limit";
+        $query = "SELECT {$this->table}.*, categories.name AS category_name 
+                  FROM {$this->table} 
+                  LEFT JOIN categories ON {$this->table}.category_id = categories.id 
+                  WHERE {$this->table}.status = 'published' 
+                  ORDER BY RAND() 
+                  LIMIT :limit";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
@@ -113,6 +118,16 @@ class Article
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
+    // Get article by slug
+    public function getArticleBySlug($slug)
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE slug = :slug LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
     public function generateUniqueSlug($title)
     {
         // Convert the title to a slug
@@ -140,13 +155,13 @@ class Article
     }
 
     // Create article
-    public function createArticle($title, $date, $content, $image, $categoryId, $tags)
+    public function createArticle($title, $date, $content, $image, $status, $categoryId, $tags, $minutes, $featured)
     {
         // Generate the slug
         $slug = $this->generateUniqueSlug($title);
 
-        $query = "INSERT INTO blog_posts (title, content, user_id, created_at, image, status, category_id, tags, slug) 
-                  VALUES (:title, :content, :user_id, :created_at, :image, :status, :category_id, :tags, :slug)";
+        $query = "INSERT INTO blog_posts (title, content, user_id, created_at, image, status, category_id, tags, slug, minutes, featured) 
+                  VALUES (:title, :content, :user_id, :created_at, :image, :status, :category_id, :tags, :slug, :minutes, :featured)";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':title', $title, PDO::PARAM_STR);
         $stmt->bindParam(':content', $content, PDO::PARAM_STR);
@@ -157,6 +172,8 @@ class Article
         $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
         $stmt->bindParam(':tags', $tags, PDO::PARAM_STR);
         $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+        $stmt->bindParam(':minutes', $minutes, PDO::PARAM_INT);
+        $stmt->bindParam(':featured', $featured, PDO::PARAM_INT);
         return $stmt->execute();
     }
 
