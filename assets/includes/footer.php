@@ -2,13 +2,13 @@
     <div class="container text-center">
         <p>© <span id="currentYear"></span> MarkSoliz.com All rights reserved.</p>
         <ul class="list-inline">
-            <li class="list-inline-item"><a href="<?php echo base_url("index.php") ?>">Home</a></li>
-            <li class="list-inline-item"><a href="<?php echo base_url("index.php#about") ?>">About Mark Soliz Web Developer</a></li>
-            <li class="list-inline-item"><a href="<?php echo base_url("index.php#Services") ?>">Services</a></li>
-            <li class="list-inline-item"><a href="<?php echo base_url("index.php#contact") ?>">Contact</a></li>
-            <li class="list-inline-item"><a href="<?php echo base_url("portfolio.php") ?>">Portfolio</a></li>
-            <li class="list-inline-item"><a href="<?php echo base_url("blog.php") ?>">Blog</a></li>
-            <li class="list-inline-item"><a href="<?php echo base_url("login.php") ?>">Login</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("/") ?>">Home</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("#about") ?>">About Mark Soliz Web Developer</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("#Services") ?>">Services</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("#contact") ?>">Contact</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("portfolio/") ?>">Portfolio</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("posts/") ?>">Blog</a></li>
+            <li class="list-inline-item"><a href="<?php echo base_url("login/") ?>">Login</a></li>
         </ul>
     </div>
 </footer>

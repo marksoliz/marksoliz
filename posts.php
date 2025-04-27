@@ -3,6 +3,11 @@
 $article = new Article();
 
 
+$category = new Category();
+// Fetch all categories using the getAllCategories() method
+
+$categories = $category->getAllCategories();
+
 ?>
 
 <div class="d-flex flex-column min-vh-100 bg-image">

@@ -154,6 +154,31 @@ class Article
         return $stmt->fetchColumn() > 0;
     }
 
+
+    // Get next article
+    public function getNextArticle($currentId)
+    {
+        $query = "SELECT * FROM " . $this->table . " 
+                  WHERE id > :currentId AND status = 'published' 
+                  ORDER BY id ASC LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':currentId', $currentId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    // Get previous article
+    public function getPreviousArticle($currentId)
+    {
+        $query = "SELECT * FROM " . $this->table . " 
+                  WHERE id < :currentId AND status = 'published' 
+                  ORDER BY id DESC LIMIT 1";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':currentId', $currentId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
     // Create article
     public function createArticle($title, $date, $content, $image, $status, $categoryId, $tags, $minutes, $featured)
     {
@@ -178,29 +203,53 @@ class Article
     }
 
     // Update article
-    public function updateArticle($id, $title, $date, $content, $image = null)
+    public function updateArticle($id, $title, $date, $content, $image, $status, $categoryId, $tags, $minutes, $featured)
     {
+        // Fetch the existing article
         $article = $this->getArticleById($id);
 
         if ($article) {
             // Check if the user is the owner of the article
             if ($article->user_id == $_SESSION['user_id']) {
+                // Generate a unique slug based on the title
+                $slug = $this->generateUniqueSlug($title);
+
                 // Delete the existing image only if a new image is being uploaded
-                if (!empty($image) && !empty($article->image) && file_exists($article->image)) {
-                    if (!unlink($article->image)) {
-                        return false;
+                if (!empty($image) && isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                    if (!empty($article->image) && file_exists(base_path($article->image))) {
+                        unlink(base_path($article->image));
                     }
                 }
 
-                $query = "UPDATE " . $this->table . " SET title = :title, content = :content, image = :image, created_at = :created_at WHERE id = :id";
+                // Update the article in the database
+                $query = "UPDATE " . $this->table . " 
+                          SET title = :title, 
+                              content = :content, 
+                              image = :image, 
+                              created_at = :created_at, 
+                              status = :status, 
+                              category_id = :category_id, 
+                              tags = :tags, 
+                              slug = :slug, 
+                              minutes = :minutes, 
+                              featured = :featured 
+                          WHERE id = :id";
                 $stmt = $this->conn->prepare($query);
                 $stmt->bindParam(':title', $title, PDO::PARAM_STR);
                 $stmt->bindParam(':content', $content, PDO::PARAM_STR);
                 $stmt->bindParam(':image', $image, PDO::PARAM_STR);
                 $stmt->bindParam(':created_at', $date, PDO::PARAM_STR);
+                $stmt->bindParam(':status', $status, PDO::PARAM_STR);
+                $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
+                $stmt->bindParam(':tags', $tags, PDO::PARAM_STR);
+                $stmt->bindParam(':slug', $slug, PDO::PARAM_STR);
+                $stmt->bindParam(':minutes', $minutes, PDO::PARAM_INT);
+                $stmt->bindParam(':featured', $featured, PDO::PARAM_INT);
                 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
                 return $stmt->execute();
             } else {
+                // Redirect if the user is not the owner
                 redirect('admin.php');
             }
         }

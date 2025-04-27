@@ -28,7 +28,7 @@ $isIndex = ($currentFile === 'index.php');
                     <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("/") ?>">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("/#about") ?>">About</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("#about") ?>">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("#Services") ?>">Services</a>
@@ -37,7 +37,7 @@ $isIndex = ($currentFile === 'index.php');
                     <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("#contact") ?>">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("portfolio") ?>">Portfolio</a>
+                    <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("portfolio/") ?>">Portfolio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("posts/") ?>">Blog</a>
@@ -45,10 +45,10 @@ $isIndex = ($currentFile === 'index.php');
                 <?php if (!isUserLoggedIn()): ?>
 
                     <li class="nav-item">
-                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("login.php") ?>">Login</a>
+                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("login/") ?>">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("register.php") ?>">Register</a>
+                        <a class="nav-link rounded-pill px-3 py-2" href="<?php echo base_url("register/") ?>">Register</a>
                     </li>
                 <?php else: ?>
 

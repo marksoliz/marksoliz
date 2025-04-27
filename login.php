@@ -64,7 +64,7 @@ if (isPostRequest()) {
                 } ?>
 
 
-                <form method="POST" action="login.php">
+                <form method="POST" action="<?php echo base_url('login') ?>">
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input
@@ -97,7 +97,7 @@ if (isPostRequest()) {
                 </form>
             </div>
             <div class="card-footer text-center">
-                <p class="small mb-0">Don't have an account? <a href="register.php">Sign Up</a></p>
+                <p class="small mb-0">Don't have an account? <a href="<?php echo base_url('register') ?>">Sign Up</a></p>
             </div>
         </div>
     </main>

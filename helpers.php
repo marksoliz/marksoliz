@@ -84,7 +84,7 @@ function logout()
     session_destroy();
 
     // Redirect to the homepage or login page
-    redirect('index.php');
+    redirect('/');
 }
 
 //format date

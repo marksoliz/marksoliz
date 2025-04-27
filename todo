@@ -1,6 +1,0 @@
-<img 
-    loading="lazy" 
-    decoding="async" 
-    src="<?php echo file_exists(base_path($article->image)) ? base_url(htmlspecialchars($article->image)) : 'https://placehold.co/600x400?text=No+Image'; ?>" 
-    alt="Post Thumbnail" 
-    class="w-100">

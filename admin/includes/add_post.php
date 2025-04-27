@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tags = $_POST['tags'];
     $minutes = $_POST['minutes'];
     $featured = isset($_POST['featured']) ? 1 : 0;
+    $status = $_POST['status'];
     $date = date('Y-m-d H:i:s'); // Current timestamp
 
     $article = new Article();
@@ -29,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Create the article
-    if (empty($error) && $article->createArticle($title, $date, $content, $image, $categoryId, $tags, $minutes, $featured)) {
+    if (empty($error) && $article->createArticle($title, $date, $content, $image, $status, $categoryId, $tags, $minutes, $featured)) {
         $message = "Blog post created successfully! View All Posts <a href='index.php?source=view_all_posts'>here</a>.";
     } else {
         $error = $error ?: "Failed to create blog post.";
@@ -48,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="" enctype="multipart/form-data" onsubmit="return submitForm();">
                 <div class="mb-3 d-flex justify-content-between align-items-center"> <!-- Flex container -->
                     <!-- Category Dropdown -->
-                    <div style="flex: 1; max-width: 30%;">
+                    <div style="flex: 1; max-width: 30%;" class="mx-2">
                         <label for="category_id" class="form-label">Category</label>
                         <select class="form-select" id="category_id" name="category_id" required>
                             <?php
@@ -63,15 +64,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ?>
                         </select>
                     </div>
-
+                    <!-- Status Dropdown -->
+                    <div style="flex: 1; max-width: 30%;" class="mx-2">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status" required>
+                            <option value="draft">Draft</option>
+                            <option value="published">Published</option>
+                        </select>
+                    </div>
                     <!-- Number Input -->
-                    <div style="flex: 1; max-width: 30%;">
+                    <div style="flex: 1; max-width: 30%;" class="mx-2">
                         <label for="minutes" class="form-label">Minutes Read</label>
                         <input type="number" class="form-control" id="minutes" name="minutes" min="1" max="10" required>
                     </div>
 
                     <!-- Slider Switch -->
-                    <div style="flex: 1; max-width: 30%;">
+                    <div style="flex: 1; max-width: 30%;" class="mx-2">
                         <label for="featured" class="form-label">Featured</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" id="featured" name="featured">
@@ -98,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <label for="image" class="form-label">Image</label>
                     <input type="file" class="form-control" id="image" name="image">
                 </div>
+
                 <button type="submit" class="btn btn-primary mb-4">Create Post</button>
             </form>
         </div>

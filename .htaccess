@@ -18,3 +18,5 @@ RewriteRule ^posts/?$ posts.php?source=$1 [L,QSA]
 
 RewriteRule ^index\.php$ /index/ [L,R=301]
 RewriteRule ^portfolio/?$ portfolio.php [L,QSA]
+RewriteRule ^register/?$ register.php [L,QSA]
+RewriteRule ^login/?$ login.php [L,QSA]
