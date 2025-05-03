@@ -1,21 +1,12 @@
 <?php
+// session_start(); // Start the session
+$config = require_once  __DIR__ . '/../config/config.php'; // Include the configuration file
 
-//Auto load classes
-require_once "autoloader.php";
+if (!defined('BASE_URL')) {
 
-// Initialize the session
-session_start();
+    define('BASE_URL', $config['app']['base_url']);
+}
 
-// Include the database connection file
-require_once "config/config.php";
-
-// Load database class
-// require_once "classes/Database.php";
-
-// Include the helpers file
-require_once "helpers.php";
-
-// Define global constants: the app name-> CMS PDO System
-define("APP_NAME", "MarkSoliz.com");
-// Define global constants: the project directory-> cms-pdo
-define("PROJECT_DIR", "marksoliz");
+require_once  __DIR__ . '/../config/database.php'; // Include the database file
+require_once  __DIR__ . '/helpers.php'; // Include the helper functions
+require_once  __DIR__ . '/autoloader.php'; // Include the autoloader file

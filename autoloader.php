@@ -5,7 +5,7 @@ spl_autoload_register(function ($class_name) {
     $paths = [
         __DIR__ . '/controllers/',
         __DIR__ . '/models/',
-        __DIR__ . '/classes/',
+        __DIR__ . '/middlewares/',
     ];
 
     foreach ($paths as $path) {
@@ -18,4 +18,4 @@ spl_autoload_register(function ($class_name) {
 
     // If the class is not found, throw an error
     throw new Exception("Class $class_name not found.");
-});
+});;
